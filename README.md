@@ -1,1 +1,1 @@
-# numerical-recipes
+# Numerical Recipes
