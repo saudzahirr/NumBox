@@ -1,3 +1,9 @@
+/*
+ * Author: Saud Zahir
+ * Date: November 12, 2023
+ * Description: Newton-Raphson root finding algorithm.
+ */
+
 #include <iostream>
 #include <cmath>
 
