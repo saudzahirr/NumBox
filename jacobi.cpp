@@ -1,13 +1,22 @@
+/*
+ * Author: Saud Zahir
+ * Date: November 12, 2023
+ * Description: Jacobi iterative algorithm to solve linear system of equations.
+ */
+
+
 #include <iostream>
 
 using namespace std;
 
 #define ITERATIONS 1000
-#define TOLERANCE 1E-6
+#define TOLERANCE 1E-8
 
-double JacobiMethod(double** A, double* b, double* x, int n) {
+void JacobiMethod(double** A, double* b, double* x, int n) {
+    double* x_k = new double[n];
+
     // Jacobi method elementwise formula.
-    for (int a = 0; a < ITERATIONS; ++a) {
+    for (int a = 1; a <= ITERATIONS; ++a) {
         for (int i = 0; i < n; ++i) {
             double S = 0;
             for (int j = 0; j < n; ++j) {
@@ -15,10 +24,32 @@ double JacobiMethod(double** A, double* b, double* x, int n) {
                     S += A[i][j] * x[j];
                 }
             }
-            x[i] = (b[i] - S) / A[i][i];
+            x_k[i] = (b[i] - S) / A[i][i];
+        }
+
+        // Absolute error evaluation
+        double max_diff = 0.0;
+        for (int i = 0; i < n; ++i) {
+            double diff = std::abs(x_k[i] - x[i]);
+            if (diff > max_diff) {
+                max_diff = diff;
+            }
+        }
+
+        for (int i = 0; i < n; ++i) {
+            x[i] = x_k[i];
+        }
+
+        if (max_diff < TOLERANCE) {
+            cout << "Jacobi method converged at " << a + 1 << " iterations." << endl;
+            for (int i = 0; i < n; ++i) {
+                cout << "x[" << i << "] = " << x[i] << endl;
+            }
+            delete[] x_k;
+            break;
         }
     }
-    return 0;
+    delete[] x_k;
 }
 
 int main() {
@@ -30,7 +61,7 @@ int main() {
         A[i] = new double[n];
     }
 
-    // Define a matrix (2D array)
+    // Define a matrix (3D array)
     A[0][0] = 4.0; A[0][1] = -1.0; A[0][2] = 1.5;
     A[1][0] = 2.2; A[1][1] = 4.0; A[1][2] = -1.0;
     A[2][0] = 0.5; A[2][1] = -1.3; A[2][2] = 2.0;
@@ -39,12 +70,7 @@ int main() {
 
     JacobiMethod(A, b, x, n);
 
-    for (int i = 0; i < 3; ++i) {
-        cout << "x[" << i << "] = " << x[i] << endl;
-    }
-
-
-    // Clean up
+    // Clean up dynamic memory
     for (int i = 0; i < n; ++i) {
         delete[] A[i];
     }
