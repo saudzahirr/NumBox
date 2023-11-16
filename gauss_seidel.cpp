@@ -32,7 +32,7 @@ void GaussSeidelMethod(double** A, double* b, double* x, int n) {
         // Absolute error evaluation
         double max_diff = 0.0;
         for (int i = 0; i < n; ++i) {
-            double diff = std::abs(x_k[i] - x[i]);
+            double diff = abs(x_k[i] - x[i]);
             if (diff > max_diff) {
                 max_diff = diff;
             }
