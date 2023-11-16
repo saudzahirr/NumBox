@@ -1,7 +1,7 @@
 /*
  * Author: Saud Zahir
  * Date: November 12, 2023
- * Description: Jacobi iterative algorithm to solve linear system of equations.
+ * Description: Weighted jacobi iterative algorithm to solve linear system of equations.
  */
 
 
@@ -12,7 +12,7 @@ using namespace std;
 #define ITERATIONS 1000
 #define TOLERANCE 1E-8
 
-void JacobiMethod(double** A, double* b, double* x, int n) {
+void WeightedJacobiMethod(double** A, double* b, double* x, double w, int n) {
     double* x_k = new double[n];
 
     // Jacobi method elementwise formula.
@@ -24,10 +24,8 @@ void JacobiMethod(double** A, double* b, double* x, int n) {
                     S += A[i][j] * x[j];
                 }
             }
-            x_k[i] = (b[i] - S) / A[i][i];
-            cout << "x[" << i << "] = " << x[i] << endl;
+            x_k[i] =  (1 - w) * x[i] + (w / A[i][i]) * (b[i] - S);
         }
-        cout << "\n" << endl;
 
         // Absolute error evaluation
         double max_diff = 0.0;
@@ -56,6 +54,7 @@ void JacobiMethod(double** A, double* b, double* x, int n) {
 
 int main() {
     const int n = 4;
+    const double w = 0.5; // Weight parameter.
 
     double** A = new double*[n];
 
@@ -71,7 +70,7 @@ int main() {
     double b[n] = {6.0, 25.0, -11.0, 15.0};
     double x[n] = {0.0, 0.0, 0.0, 0.0};
 
-    JacobiMethod(A, b, x, n);
+    WeightedJacobiMethod(A, b, x, w, n);
 
     // Clean up dynamic memory
     for (int i = 0; i < n; ++i) {
