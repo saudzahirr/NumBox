@@ -6,13 +6,14 @@
 
 
 #include <iostream>
+#include "gauss_seidel.h"
 
 using namespace std;
 
 #define ITERATIONS 1000
 #define TOLERANCE 1E-32
 
-void GaussSeidelMethod(double** A, double* b, double* x, int n) {
+double* GaussSeidelMethod(double** A, double* b, double* x, int n) {
     double* x_k = new double[n];
 
     // Gauss-Seidel method elementwise formula.
@@ -20,10 +21,10 @@ void GaussSeidelMethod(double** A, double* b, double* x, int n) {
         for (int i = 0; i < n; ++i) {
             double S1 = 0;
             double S2 = 0;
-            for (int j = 0; j < i; ++j) {  // Corrected the loop index for S1
+            for (int j = 0; j < i; ++j) {
                 S1 += A[i][j] * x_k[j];
             }
-            for (int j = i + 1; j < n; ++j) {  // Corrected the loop index for S2
+            for (int j = i + 1; j < n; ++j) {
                 S2 += A[i][j] * x[j];
             }
             x_k[i] = (b[i] - S1 - S2) / A[i][i];
@@ -52,32 +53,6 @@ void GaussSeidelMethod(double** A, double* b, double* x, int n) {
         }
     }
     delete[] x_k;
-}
 
-int main() {
-    const int n = 4;
-
-    double** A = new double*[n];
-
-    for (int i = 0; i < n; ++i) {
-        A[i] = new double[n];
-    }
-
-    // Define a matrix (4D array)
-    A[0][0] = 10.0; A[0][1] = -1.0; A[0][2] = 2.0; A[0][3] = 0;
-    A[1][0] = -1.0; A[1][1] = 11.0; A[1][2] = -1.0; A[1][3] = 3.0;
-    A[2][0] = 2.0; A[2][1] = -1.0; A[2][2] = 10.0; A[2][3] = -1.0;
-    A[3][0] = 0.0; A[3][1] = 3.0; A[3][2] = -1.0; A[3][3] = 8.0;
-    double b[n] = {6.0, 25.0, -11.0, 15.0};
-    double x[n] = {0.0, 0.0, 0.0, 0.0};
-
-    GaussSeidelMethod(A, b, x, n);
-
-    // Clean up dynamic memory
-    for (int i = 0; i < n; ++i) {
-        delete[] A[i];
-    }
-    delete[] A;
-
-    return 0;
+    return x;
 }

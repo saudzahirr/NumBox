@@ -25,9 +25,7 @@ void JacobiMethod(double** A, double* b, double* x, int n) {
                 }
             }
             x_k[i] = (b[i] - S) / A[i][i];
-            cout << "x[" << i << "] = " << x[i] << endl;
         }
-        cout << "\n" << endl;
 
         // Absolute error evaluation
         double max_diff = 0.0;

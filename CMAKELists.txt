@@ -1,13 +1,13 @@
-# CMakeLists.txt
-
 cmake_minimum_required(VERSION 3.10)
+project(LinearAlgebra)
 
-# Set the project name
-project(NumericalRecipes)
-
-# Set C++ standard
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Add the executable
-add_executable(YourExecutable newton_raphson.cpp jacobi.cpp)
+# Add the path to the directory containing gauss_seidel.cpp and gauss_seidel.h
+add_subdirectory(LinearAlgebra)
+
+# Add the executable for your test.cpp
+add_executable(test test.cpp)
+
+# Link the Gauss-Seidel implementation with the test executable
+target_link_libraries(test GaussSeidel)
