@@ -20,10 +20,10 @@ void GaussSeidelMethod(double** A, double* b, double* x, int n) {
         for (int i = 0; i < n; ++i) {
             double S1 = 0;
             double S2 = 0;
-            for (int j = 0; j < i - 1; ++j) {
+            for (int j = 0; j < i; ++j) {  // Corrected the loop index for S1
                 S1 += A[i][j] * x_k[j];
             }
-            for (int j = a + 1; j <= n; ++j) {
+            for (int j = i + 1; j < n; ++j) {  // Corrected the loop index for S2
                 S2 += A[i][j] * x[j];
             }
             x_k[i] = (b[i] - S1 - S2) / A[i][i];
@@ -43,7 +43,7 @@ void GaussSeidelMethod(double** A, double* b, double* x, int n) {
         }
 
         if (max_diff < TOLERANCE) {
-            cout << "Jacobi method converged at " << a + 1 << " iterations." << endl;
+            cout << "Gauss-Seidel method converged at " << a << " iterations." << endl;
             for (int i = 0; i < n; ++i) {
                 cout << "x[" << i << "] = " << x[i] << endl;
             }
@@ -55,7 +55,7 @@ void GaussSeidelMethod(double** A, double* b, double* x, int n) {
 }
 
 int main() {
-    const int n = 3;
+    const int n = 4;
 
     double** A = new double*[n];
 
@@ -63,12 +63,13 @@ int main() {
         A[i] = new double[n];
     }
 
-    // Define a matrix (3D array)
-    A[0][0] = 4.0; A[0][1] = -1.0; A[0][2] = 1.5;
-    A[1][0] = 2.2; A[1][1] = 4.0; A[1][2] = -1.0;
-    A[2][0] = 0.5; A[2][1] = -1.3; A[2][2] = 2.0;
-    double b[3] = {1.5, 1.0, 1.2};
-    double x[3] = {0.0, 0.0, 0.0};
+    // Define a matrix (4D array)
+    A[0][0] = 10.0; A[0][1] = -1.0; A[0][2] = 2.0; A[0][3] = 0;
+    A[1][0] = -1.0; A[1][1] = 11.0; A[1][2] = -1.0; A[1][3] = 3.0;
+    A[2][0] = 2.0; A[2][1] = -1.0; A[2][2] = 10.0; A[2][3] = -1.0;
+    A[3][0] = 0.0; A[3][1] = 3.0; A[3][2] = -1.0; A[3][3] = 8.0;
+    double b[n] = {6.0, 25.0, -11.0, 15.0};
+    double x[n] = {0.0, 0.0, 0.0, 0.0};
 
     GaussSeidelMethod(A, b, x, n);
 

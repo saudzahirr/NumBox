@@ -10,7 +10,7 @@
 using namespace std;
 
 #define ITERATIONS 1000
-#define TOLERANCE 1E-8
+#define TOLERANCE 1E-32
 
 void WeightedJacobiMethod(double** A, double* b, double* x, double w, int n) {
     double* x_k = new double[n];
@@ -64,8 +64,8 @@ int main() {
 
     // Define a matrix (4D array)
     A[0][0] = 10.0; A[0][1] = -1.0; A[0][2] = 2.0; A[0][3] = 0;
-    A[1][0] = -1.0; A[1][1] = 11.0; A[1][2] = -1.0; A[0][3] = 3.0;
-    A[2][0] = 2.0; A[2][1] = -1.0; A[2][2] = 10.0; A[0][3] = -1.0;
+    A[1][0] = -1.0; A[1][1] = 11.0; A[1][2] = -1.0; A[1][3] = 3.0;
+    A[2][0] = 2.0; A[2][1] = -1.0; A[2][2] = 10.0; A[2][3] = -1.0;
     A[3][0] = 0.0; A[3][1] = 3.0; A[3][2] = -1.0; A[3][3] = 8.0;
     double b[n] = {6.0, 25.0, -11.0, 15.0};
     double x[n] = {0.0, 0.0, 0.0, 0.0};
