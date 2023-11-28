@@ -1,3 +1,6 @@
 # Ignore C/C++ executables
 *.out
 *.exe
+
+# Ignore CMAKE Build
+build/

@@ -1,13 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
-project(LinearAlgebra)
+project(NumericalMethods)
 
 set(CMAKE_CXX_STANDARD 14)
 
-# Add the path to the directory containing gauss_seidel.cpp and gauss_seidel.h
 add_subdirectory(LinearAlgebra)
 
-# Add the executable for your test.cpp
 add_executable(test test.cpp)
-
-# Link the Gauss-Seidel implementation with the test executable
-target_link_libraries(test GaussSeidel)
+target_link_libraries(test LinearAlgebra)
