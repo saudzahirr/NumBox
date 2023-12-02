@@ -72,7 +72,7 @@ int main() {
     double b[n] = {6.0, 25.0, -11.0, 15.0};
     double x[n] = {0.0, 0.0, 0.0, 0.0};
 
-    WeightedJacobiMethod(A, b, x, w, n);
+    double* x =  WeightedJacobiMethod(A, b, x, w, n);
 
     // Clean up dynamic memory
     for (int i = 0; i < n; ++i) {

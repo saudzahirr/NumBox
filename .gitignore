@@ -5,6 +5,7 @@
 
 # Ignore CMAKE Build
 build/
+CMAKEFiles
 
 # Ignore test files
 test.cpp
