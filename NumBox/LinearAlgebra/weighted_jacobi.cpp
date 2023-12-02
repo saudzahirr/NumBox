@@ -12,7 +12,7 @@ using namespace std;
 #define ITERATIONS 1000
 #define TOLERANCE 1E-32
 
-void WeightedJacobiMethod(double** A, double* b, double* x, double w, int n) {
+double* WeightedJacobiMethod(double** A, double* b, double* x, double w, int n) {
     double* x_k = new double[n];
 
     // Jacobi method elementwise formula.
@@ -50,6 +50,8 @@ void WeightedJacobiMethod(double** A, double* b, double* x, double w, int n) {
         }
     }
     delete[] x_k;
+
+    return x;
 }
 
 int main() {

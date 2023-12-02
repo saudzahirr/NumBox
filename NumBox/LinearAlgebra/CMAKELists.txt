@@ -1,0 +1,6 @@
+file(GLOB SOURCES *.cpp)
+file(GLOB HEADERS *.h)
+
+add_library(LinearAlgebra ${SOURCES} ${HEADERS})
+
+target_link_libraries(LinearAlgebra NumBox)

@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <cmath>
+#include "newton_raphson.h"
 
 using namespace std;
 

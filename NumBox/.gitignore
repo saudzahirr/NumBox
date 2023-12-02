@@ -1,6 +1,10 @@
 # Ignore C/C++ executables
 *.out
 *.exe
+*.so
 
 # Ignore CMAKE Build
 build/
+
+# Ignore test files
+test.cpp

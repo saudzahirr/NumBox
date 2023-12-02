@@ -1,8 +1,8 @@
-#ifndef GAUSS_SEIDEL_H
-#define GAUSS_SEIDEL_H
+#ifndef JACOBI_H
+#define JACOBI_H
 
 /**
- * Solves a linear system of equations using the Gauss-Seidel iterative algorithm.
+ * Solves a linear system of equations using the Jacobi iterative algorithm.
  *
  * @param A      Coefficient matrix of the linear system.
  * @param b      Output vector of the linear system.
@@ -10,6 +10,6 @@
  * @param n      Size of the linear system.
  * @return       Pointer to the solution vector. The memory is allocated dynamically.
  */
-double* GaussSeidelMethod(double** A, double* b, double* x, int n);
+double* JacobiMethod(double** A, double* b, double* x, int n);
 
-#endif  // GAUSS_SEIDEL_H
+#endif  // JACOBI_H
