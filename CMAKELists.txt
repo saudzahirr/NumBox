@@ -3,13 +3,10 @@ project(NumBox)
 
 set(CMAKE_CXX_STANDARD 14)
 
-# Add subdirectories
 add_subdirectory(LinearAlgebra)
 add_subdirectory(RootFindingAlgorithms)
 
-# Add the executable
 file(GLOB MAIN_SOURCES "*.cpp")
 add_executable(main ${MAIN_SOURCES})
 
-# Link the executable with the linear algebra library
 target_link_libraries(main LinearAlgebra)

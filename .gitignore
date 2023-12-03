@@ -7,8 +7,5 @@
 build/
 CMAKEFiles
 
-# Ignore test files
-test.cpp
-
 # Ignore Windows Batch Files
 *.bat
