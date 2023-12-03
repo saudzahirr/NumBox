@@ -1,0 +1,4 @@
+file(GLOB ROOT_FINDING_ALGORITHMS_SOURCES "*.cpp" "*.h")
+add_library(RootFindingAlgorithms ${ROOT_FINDING_ALGORITHMS_SOURCES})
+
+target_include_directories(RootFindingAlgorithms PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

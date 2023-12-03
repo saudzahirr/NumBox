@@ -12,7 +12,7 @@ using namespace std;
 #define ITERATIONS 1000
 #define TOLERANCE 1E-32
 
-void WeightedJacobiMethod(double** A, double* b, double* x, double w, int n) {
+double* WeightedJacobiMethod(double** A, double* b, double* x, double w, int n) {
     double* x_k = new double[n];
 
     // Jacobi method elementwise formula.
@@ -41,15 +41,15 @@ void WeightedJacobiMethod(double** A, double* b, double* x, double w, int n) {
         }
 
         if (max_diff < TOLERANCE) {
-            cout << "Jacobi method converged at " << a + 1 << " iterations." << endl;
-            for (int i = 0; i < n; ++i) {
-                cout << "x[" << i << "] = " << x[i] << endl;
-            }
+            cout << "Weighted Jacobi method converged at " << a + 1 << " iterations." << endl;
             delete[] x_k;
-            break;
+            return x;
         }
     }
     delete[] x_k;
+
+    cerr << "Weighted Jacobi method did not converge!" << endl;
+    return nullptr;
 }
 
 int main() {
@@ -70,7 +70,14 @@ int main() {
     double b[n] = {6.0, 25.0, -11.0, 15.0};
     double x[n] = {0.0, 0.0, 0.0, 0.0};
 
-    WeightedJacobiMethod(A, b, x, w, n);
+    double* U = WeightedJacobiMethod(A, b, x, w, n);
+    if (U != nullptr) {
+        cout << "-----------------------------" << endl;
+        for (int i = 0; i < n; ++i) {
+            cout << "x[" << i << "] = " << U[i] << endl;
+        }
+        delete[] U; // Clean up dynamic memory
+    }
 
     // Clean up dynamic memory
     for (int i = 0; i < n; ++i) {
