@@ -2,10 +2,10 @@
 #define NEWTON_RAPHSON_H
 
 // Derivative of a function using Ab initio principle.
-double calculateDerivative(double (*f)(double), double x, double h = 1E-10);
+double calculateDerivative(double (*f)(double), double x, double h);
 
 // Newton-Raphson Method to find the root of a function.
-double NewtonRaphsonMethod(double (*f)(double), double x0, int iterations, double tolerance = 1E-16);
+double NewtonRaphsonMethod(double (*f)(double), double x0, int iterations, double tolerance);
 
 // Function to be evaluated.
 double function(double x);

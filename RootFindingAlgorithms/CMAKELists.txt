@@ -1,6 +1,4 @@
-file(GLOB SOURCES *.cpp)
-file(GLOB HEADERS *.h)
+file(GLOB ROOT_FINDING_ALGORITHMS_SOURCES "*.cpp" "*.h")
+add_library(RootFindingAlgorithms ${ROOT_FINDING_ALGORITHMS_SOURCES})
 
-add_library(RootFindingAlgorithms ${SOURCES} ${HEADERS})
-
-target_link_libraries(RootFindingAlgorithms NumBox)
+target_include_directories(RootFindingAlgorithms PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
