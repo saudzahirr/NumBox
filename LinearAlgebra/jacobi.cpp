@@ -46,10 +46,11 @@ double* JacobiMethod(double** A, double* b, double* x, int n) {
                 cout << "x[" << i << "] = " << x[i] << endl;
             }
             delete[] x_k;
-            break;
+            return x;
         }
     }
     delete[] x_k;
 
-    return x;
+    cerr << "Jacobi method did not converge!" << endl;
+    return nullptr;
 }

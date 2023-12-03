@@ -1,6 +1,4 @@
-file(GLOB SOURCES *.cpp)
-file(GLOB HEADERS *.h)
+file(GLOB LINEAR_ALGEBRA_SOURCES "*.cpp" "*.h")
+add_library(LinearAlgebra ${LINEAR_ALGEBRA_SOURCES})
 
-add_library(LinearAlgebra ${SOURCES} ${HEADERS})
-
-target_link_libraries(LinearAlgebra NumBox)
+target_include_directories(LinearAlgebra PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

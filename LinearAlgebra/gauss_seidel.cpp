@@ -45,14 +45,12 @@ double* GaussSeidelMethod(double** A, double* b, double* x, int n) {
 
         if (max_diff < TOLERANCE) {
             cout << "Gauss-Seidel method converged at " << a << " iterations." << endl;
-            for (int i = 0; i < n; ++i) {
-                cout << "x[" << i << "] = " << x[i] << endl;
-            }
             delete[] x_k;
-            break;
+            return x;
         }
     }
     delete[] x_k;
 
-    return x;
+    cerr << "Gauss-Seidel method did not converge!" << endl;
+    return nullptr;
 }
