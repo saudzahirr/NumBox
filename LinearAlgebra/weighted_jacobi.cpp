@@ -6,6 +6,9 @@
 
 
 #include <iostream>
+#include "weighted_jacobi.h"
+#include "../Utils/utils.h"
+
 
 using namespace std;
 
@@ -72,7 +75,6 @@ int main() {
 
     double* U = WeightedJacobiMethod(A, b, x, w, n);
     if (U != nullptr) {
-        cout << "-----------------------------" << endl;
         for (int i = 0; i < n; ++i) {
             cout << "x[" << i << "] = " << U[i] << endl;
         }

@@ -2,7 +2,9 @@
 #define JACOBI_H
 
 /**
- * Solves a linear system of equations using the Jacobi iterative algorithm.
+ * @brief Jacobi Method
+ * 
+ * This method solves a linear system of equations (Ax = b) using Jacobi algorithm.
  *
  * @param A      Coefficient matrix of the linear system.
  * @param b      Output vector of the linear system.
