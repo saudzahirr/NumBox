@@ -7,14 +7,9 @@
 #include <iostream>
 #include <cmath>
 #include "newton_raphson.h"
+#include "../Utils/utils.h"
 
 using namespace std;
-
-
-// Derivative of a function using Ab initio principle.
-double calculateDerivative(double (*f)(double), double x, double h = 1E-10) {
-    return (f(x + h) - f(x)) / h;
-}
 
 
 double NewtonRaphsonMethod(double (*f)(double), double x0, int iterations, double tolerance = 1E-16) {
@@ -22,7 +17,7 @@ double NewtonRaphsonMethod(double (*f)(double), double x0, int iterations, doubl
     double x = x0;
 
     for (i = 0; i < iterations; i++) {
-        double df = calculateDerivative(f, x);
+        double df = calculateDerivative(f, x, 1E-10);
 
         if (fabs(df) < 1e-8) {
             cout << x << " is a critical point, breaking iteration at " << i << "..." << endl;

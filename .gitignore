@@ -9,3 +9,6 @@ CMAKEFiles
 
 # Ignore Windows Batch Files
 *.bat
+
+# Ignore vsocde files
+.vscode

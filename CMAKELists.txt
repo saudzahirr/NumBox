@@ -5,8 +5,9 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_subdirectory(LinearAlgebra)
 add_subdirectory(RootFindingAlgorithms)
+add_subdirectory(Utils)
 
 file(GLOB MAIN_SOURCES "*.cpp")
-add_executable(main ${MAIN_SOURCES})
+add_executable(numbox ${MAIN_SOURCES})
 
-target_link_libraries(main LinearAlgebra)
+target_link_directories(numbox PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/LinearAlgebra ${CMAKE_CURRENT_SOURCE_DIR}/RootFindingAlgorithms ${CMAKE_CURRENT_SOURCE_DIR}/Utils)

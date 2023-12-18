@@ -2,7 +2,9 @@
 #define WEIGHTED_JACOBI_H
 
 /**
- * Solves a linear system of equations using the Weighted-Jacobi iterative algorithm.
+ * @brief Weighted Jacobi Method
+ * 
+ * This method solves a linear system of equations (Ax = b) using Weighted Jacobi algorithm.
  *
  * @param A      Coefficient matrix of the linear system.
  * @param b      Output vector of the linear system.
