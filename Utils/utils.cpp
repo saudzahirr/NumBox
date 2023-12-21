@@ -61,6 +61,7 @@ double* Cross(double* vectorA, double* vectorB) {
     vector[0] = vectorA[1] * vectorB[2] - vectorA[2] * vectorB[1];
     vector[1] = vectorA[2] * vectorB[0] - vectorA[0] * vectorB[2];
     vector[2] = vectorA[0] * vectorB[1] - vectorA[1] * vectorB[0];
+    return vector;
 };
 
 // Function to clean up the allocated memory for the matrix
