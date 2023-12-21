@@ -56,7 +56,8 @@ double Dot(double* vectorA, double* vectorB, int n) {
     return a;
 };
 
-void Cross(double* vectorA, double* vectorB, double* vector) {
+double* Cross(double* vectorA, double* vectorB) {
+    double vector[3];
     vector[0] = vectorA[1] * vectorB[2] - vectorA[2] * vectorB[1];
     vector[1] = vectorA[2] * vectorB[0] - vectorA[0] * vectorB[2];
     vector[2] = vectorA[0] * vectorB[1] - vectorA[1] * vectorB[0];
@@ -78,3 +79,59 @@ void displayMatrix(double** matrix, int rows, int cols, int cellSize = 8) {
         cout << endl;
     }
 };
+
+double determinantTriangularMatrix(double** matrix, int n) {
+    double det = 1.0;
+
+    // Multiply the diagonal elements
+    for (int i = 0; i < n; ++i) {
+        det *= matrix[i][i];
+    }
+
+    return det;
+}
+
+void getSubmatrix(double** matrix, int size, int row, int col, double** submatrix) {
+    int subRow = 0, subCol = 0;
+    for (int i = 0; i < size; ++i) {
+        if (i != row) {
+            subCol = 0;
+            for (int j = 0; j < size; ++j) {
+                if (j != col) {
+                    submatrix[subRow][subCol] = matrix[i][j];
+                    ++subCol;
+                }
+            }
+            ++subRow;
+        }
+    }
+}
+
+double Determinant(double** matrix, int n) {
+    if (n == 1) {
+        return matrix[0][0];
+    }
+
+    double det = 0.0;
+
+    // Laplace expansion
+    for (int i = 0; i < n; ++i) {
+        // Calculate the cofactor (sign * minor) and add it to the determinant
+        double** submatrix = new double*[n - 1];
+        for (int j = 0; j < n - 1; ++j) {
+            submatrix[j] = new double[n - 1];
+        }
+
+        getSubmatrix(matrix, n, 0, i, submatrix);
+
+        det += (i % 2 == 0 ? 1 : -1) * matrix[0][i] * Determinant(submatrix, n - 1);
+
+        // Deallocate memory for submatrix
+        for (int j = 0; j < n - 1; ++j) {
+            delete[] submatrix[j];
+        }
+        delete[] submatrix;
+    }
+
+    return det;
+}
