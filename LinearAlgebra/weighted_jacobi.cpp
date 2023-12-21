@@ -9,8 +9,8 @@
 #include "weighted_jacobi.h"
 #include "../Utils/utils.h"
 
-
 using namespace std;
+
 
 #define ITERATIONS 1000
 #define TOLERANCE 1E-32
@@ -55,6 +55,7 @@ double* WeightedJacobiMethod(double** A, double* b, double* x, double w, int n) 
     return nullptr;
 }
 
+
 int main() {
     const int n = 4;
     const double w = 0.5; // Weight parameter.
@@ -82,10 +83,7 @@ int main() {
     }
 
     // Clean up dynamic memory
-    for (int i = 0; i < n; ++i) {
-        delete[] A[i];
-    }
-    delete[] A;
+    cleanMatrix(A, n);
 
     return 0;
 }

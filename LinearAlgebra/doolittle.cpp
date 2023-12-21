@@ -11,6 +11,7 @@
 
 using namespace std;
 
+
 void doolittleLU(double** A, double**& L, double**& U, int n) {
     // Allocate memory for L and U matrices
     L = new double*[n];
@@ -33,8 +34,9 @@ void doolittleLU(double** A, double**& L, double**& U, int n) {
         // Upper Triangular
         for (int k = i; k < n; k++){
             double sum = 0.0;
-            for (int j = 0; j < i; j++)
+            for (int j = 0; j < i; j++) {
                 sum += (L[i][j] * U[j][k]);
+            }
             U[i][k] = A[i][k] - sum;
         }
  
@@ -42,24 +44,17 @@ void doolittleLU(double** A, double**& L, double**& U, int n) {
         for (int k = i; k < n; k++) {
             if (i == k)
                 L[i][i] = 1;
-            else{
+            else {
                 double sum = 0.0;
-                for (int j = 0; j < i; j++)
+                for (int j = 0; j < i; j++) {
                     sum += (L[k][j] * U[j][i]);
+                }
                 L[k][i] = (A[k][i] - sum) / U[i][i];
             }
         }
     }
 }
 
-void displayMatrix(double** matrix, int rows, int cols) {
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
-            cout << matrix[i][j] << " ";
-        }
-        cout << endl;
-    }
-}
 
 int main() {
     const int n = 4;
@@ -81,23 +76,18 @@ int main() {
 
     // Display the results
     cout << "Matrix A:" << endl;
-    displayMatrix(A, n, n);
+    displayMatrix(A, n, n, 8);
 
     cout << "\nMatrix L:" << endl;
-    displayMatrix(L, n, n);
+    displayMatrix(L, n, n, 8);
 
     cout << "\nMatrix U:" << endl;
-    displayMatrix(U, n, n);
+    displayMatrix(U, n, n, 8);
 
     // Clean up memory
-    for (int i = 0; i < n; ++i) {
-        delete[] A[i];
-        delete[] L[i];
-        delete[] U[i];
-    }
-    delete[] A;
-    delete[] L;
-    delete[] U;
+    cleanMatrix(A, n);
+    cleanMatrix(L, n);
+    cleanMatrix(U, n);
 
     return 0;
 }
