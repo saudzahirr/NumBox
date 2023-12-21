@@ -9,8 +9,8 @@
 #include "gauss_seidel.h"
 #include "../Utils/utils.h"
 
-
 using namespace std;
+
 
 #define ITERATIONS 1000
 #define TOLERANCE 1E-32
@@ -57,6 +57,7 @@ double* GaussSeidelMethod(double** A, double* b, double* x, int n) {
     return nullptr;
 }
 
+
 int main() {
     const int n = 4;
 
@@ -82,11 +83,7 @@ int main() {
         delete[] U; // Clean up dynamic memory
     }
 
-    // Clean up dynamic memory
-    for (int i = 0; i < n; ++i) {
-        delete[] A[i];
-    }
-    delete[] A;
+    cleanMatrix(A, n);
 
     return 0;
 }

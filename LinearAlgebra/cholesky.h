@@ -11,9 +11,7 @@
  *          Input matrix (A) and output lower triangular matrix (L).
  * @param L Lower triangular matrix (output).
  * @param n Size of the matrix.
- * @return True if the decomposition is successful, false otherwise (e.g., if the matrix is not
- *         symmetric positive-definite).
  */
-bool choleskyDecomposition(double** A, double**& L, int n);
+void choleskyDecomposition(double** A, double**& L, int n);
 
 #endif // CHOLESKY_H

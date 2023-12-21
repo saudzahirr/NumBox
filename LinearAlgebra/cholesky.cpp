@@ -7,10 +7,11 @@
 
 #include <iostream>
 #include <cmath>
-#include "doolittle.h"
+#include "cholesky.h"
 #include "../Utils/utils.h"
 
 using namespace std;
+
 
 void choleskyDecomposition(double** A, double**& L, int n) {
     L = new double*[n];
@@ -43,14 +44,6 @@ void choleskyDecomposition(double** A, double**& L, int n) {
     }
 }
 
-void displayMatrix(double** matrix, int rows, int cols) {
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
-            cout << matrix[i][j] << " ";
-        }
-        cout << endl;
-    }
-}
 
 int main() {
     const int n = 4;
@@ -72,19 +65,14 @@ int main() {
 
     // Display the results
     cout << "Matrix A:" << endl;
-    displayMatrix(A, n, n);
+    displayMatrix(A, n, n, 8);
 
     cout << "\nMatrix L:" << endl;
-    displayMatrix(L, n, n);
-
+    displayMatrix(L, n, n, 8);
 
     // Clean up memory
-    for (int i = 0; i < n; ++i) {
-        delete[] A[i];
-        delete[] L[i];
-    }
-    delete[] A;
-    delete[] L;
+    cleanMatrix(A, n);
+    cleanMatrix(L, n);
 
     return 0;
 }
