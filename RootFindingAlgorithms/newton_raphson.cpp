@@ -17,7 +17,7 @@ double NewtonRaphsonMethod(double (*f)(double), double x0, int iterations, doubl
     double x = x0;
 
     for (i = 0; i < iterations; i++) {
-        double df = calculateDerivative(f, x, 1E-10);
+        double df = Derivative(f, x, 1E-10);
 
         if (fabs(df) < 1e-8) {
             cout << x << " is a critical point, breaking iteration at " << i << "..." << endl;
