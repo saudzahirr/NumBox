@@ -1,7 +1,7 @@
 /*
  * Author: Saud Zahir
  * Date: December 23, 2023
- * Description: Bolzano's (Bisection) method root finding algorithm.
+ * Description: Regula Falsi (False Position) method root finding algorithm.
  */
 
 #include <iostream>
@@ -34,7 +34,7 @@ double RegulaFalsiMethod(double (*f)(double), double a, double b, int iterations
             }
 
             else {
-                cout << "Bolzano's method did not converge" << endl;
+                cout << "Regula-Falsi method did not converge" << endl;
                 break;
             }
 
