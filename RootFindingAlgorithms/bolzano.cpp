@@ -7,7 +7,6 @@
 #include <iostream>
 #include <cmath>
 #include "bolzano.h"
-#include "../Utils/utils.h"
 
 using namespace std;
 
@@ -26,9 +25,14 @@ double BolzanosMethod(double (*f)(double), double a, double b, int iterations, d
                 a = p;
             }
 
-            else {
+            else if (round(f(a) * f(b)) == 0) {
                 cout << "The root of the function at " << i << " number of iterations is: " << endl;
                 cout << "x = " << p << endl;
+                break;
+            }
+
+            else {
+                cout << "Bolzano's method did not converge" << endl;
                 break;
             }
 
