@@ -6,8 +6,8 @@
  */
 
 #include <iostream>
-#include "crout.h"
 #include "../Utils/utils.h"
+#include "crout.h"
 
 using namespace std;
 

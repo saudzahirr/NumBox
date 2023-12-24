@@ -6,8 +6,8 @@
  */
 
 #include <iostream>
-#include "doolittle.h"
 #include "../Utils/utils.h"
+#include "doolittle.h"
 
 using namespace std;
 

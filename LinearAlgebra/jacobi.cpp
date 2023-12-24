@@ -6,14 +6,11 @@
 
 
 #include <iostream>
-#include "jacobi.h"
 #include "../Utils/utils.h"
+#include "jacobi.h"
 
 using namespace std;
 
-
-#define ITERATIONS 1000
-#define TOLERANCE 1E-32
 
 double* JacobiMethod(double** A, double* b, double* x, int n) {
     double* x_k = new double[n];

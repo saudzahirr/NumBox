@@ -6,14 +6,11 @@
 
 
 #include <iostream>
-#include "gauss_seidel.h"
 #include "../Utils/utils.h"
+#include "gauss_seidel.h"
 
 using namespace std;
 
-
-#define ITERATIONS 1000
-#define TOLERANCE 1E-32
 
 double* GaussSeidelMethod(double** A, double* b, double* x, int n) {
     double* x_k = new double[n];
