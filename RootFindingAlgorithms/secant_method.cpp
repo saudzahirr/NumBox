@@ -32,16 +32,3 @@ double SecantMethod(double (*f)(double), double x0, double x1) {
     return NAN;
 }
 
-
-
-
-double function(double x) {
-    return pow(x, 3) - x - 2; //  x * sin(2 * x) - pow(x, 3); //
-}
-
-
-int main() {
-    double x = SecantMethod(function, 0.2, 1);
-    cout << "x = " << x << endl;
-    return 0;
-}
