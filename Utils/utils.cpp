@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <cmath>
 #include "utils.h"
 
 using namespace std;
@@ -48,6 +49,23 @@ double** matrixProduct(double** A, int rowsA, int colsA, double** B, int rowsB, 
     return C;
 };
 
+double* vectorProduct(double** A, int rowsA, int colsA, double* v, int rowsB) {
+    if (colsA != rowsB) {
+        cerr << "Matrix and vector dimensions are not compatible for multiplication.\n";
+        return nullptr;
+    }
+
+    double* x = new double[rowsA];
+
+    for (int i = 0; i < rowsA; ++i) {
+        x[i] = 0.0;
+        for (int j = 0; j < colsA; ++j) {
+            x[i] += A[i][j] * v[j];
+        }
+    }
+    return x;
+};
+
 double Dot(double* vectorA, double* vectorB, int n) {
     double a = 0.0;
     for (int i = 0; i < n; ++i) {
@@ -62,6 +80,42 @@ double* Cross(double* vectorA, double* vectorB) {
     vector[1] = vectorA[2] * vectorB[0] - vectorA[0] * vectorB[2];
     vector[2] = vectorA[0] * vectorB[1] - vectorA[1] * vectorB[0];
     return vector;
+};
+
+double Norm(double* x, int n) {
+    return sqrt(Dot(x, x, n));
+};
+
+double Max(double* x, int n) {
+    double a = 0.0;
+    for (int i = 0; i < n; ++i) {
+        a = max(x[i], a);
+    }
+    return a;
+};
+
+double Min(double* x, int n) {
+    double a = 0.0;
+    for (int i = 0; i < n; ++i) {
+        a = min(x[i], a);
+    }
+    return a;
+};
+
+double* divideVector(double* v, int n, double s) {
+    for (int i = 0; i < n; ++i) {
+        v[i] = v[i] / s;
+    }
+    return v;
+};
+
+double** divideMatrix(double** A, int m, int n, double s) {
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
+            A[i][j] = A[i][j] /s;
+        }
+    }
+    return A;
 };
 
 // Function to clean up the allocated memory for the matrix
@@ -79,6 +133,19 @@ void displayMatrix(double** matrix, int rows, int cols, int cellSize = 8) {
         }
         cout << endl;
     }
+};
+
+void displayVector(double* vector, int n) {
+    cout << "[";
+    for (int i = 0; i < n; ++i) {
+        if (i < n - 1) {
+            cout << vector[i] << ", ";
+        }
+        else {
+            cout << vector[i];
+        }
+    }
+    cout << "]" << endl;
 };
 
 double determinantTriangularMatrix(double** matrix, int n) {
