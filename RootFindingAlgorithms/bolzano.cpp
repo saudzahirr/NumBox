@@ -6,16 +6,17 @@
 
 #include <iostream>
 #include <cmath>
+#include "../Utils/utils.h"
 #include "bolzano.h"
 
 using namespace std;
 
 
-double BolzanosMethod(double (*f)(double), double a, double b, int iterations, double tolerance = 1E-16) {
+double BolzanosMethod(double (*f)(double), double a, double b) {
     double p = 0.0;
 
     if (f(a) * f(b) < 0) {
-        for (int i = 0; i < iterations; i++) {
+        for (int i = 0; i < ITERATIONS; i++) {
             p = (a + b) / 2;
             if (f(a) * f(p) < 0) {
                 b = p;
@@ -54,11 +55,10 @@ double function(double x) {
 
 
 int main() {
-    int iterations = 2000;
     double a = 0;
     double b = 2;
 
-    double x = BolzanosMethod(function, a, b, iterations);
+    double x = BolzanosMethod(function, a, b);
     cout << "f(" << x <<") = " << function(x) << endl;
     return 0;
 }

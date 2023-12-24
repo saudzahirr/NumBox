@@ -6,11 +6,11 @@
 
 
 #include <iostream>
-#include <random>
-#include "rayleigh_quotient.h"
 #include "../Utils/utils.h"
+#include "rayleigh_quotient.h"
 
 using namespace std;
+
 
 double RayleighQuotient(double** A, double* x, int n) {
     return Dot(vectorProduct(A, n, n, x, n), x, n) / Norm(x, n);

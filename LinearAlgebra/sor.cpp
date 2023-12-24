@@ -8,14 +8,11 @@
 
 
 #include <iostream>
-#include "sor.h"
 #include "../Utils/utils.h"
+#include "sor.h"
 
 using namespace std;
 
-
-#define ITERATIONS 1000
-#define TOLERANCE 1E-32
 
 double* SuccessiveOverRelaxation(double** A, double* b, double* x, double w, int n) {
     double* x_k = new double[n];

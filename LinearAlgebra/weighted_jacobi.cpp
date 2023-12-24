@@ -6,14 +6,11 @@
 
 
 #include <iostream>
-#include "weighted_jacobi.h"
 #include "../Utils/utils.h"
+#include "weighted_jacobi.h"
 
 using namespace std;
 
-
-#define ITERATIONS 1000
-#define TOLERANCE 1E-32
 
 double* WeightedJacobiMethod(double** A, double* b, double* x, double w, int n) {
     double* x_k = new double[n];

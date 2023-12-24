@@ -2,6 +2,11 @@
 #define UTILS_H
 
 
+#define ITERATIONS 1000
+#define TOLERANCE 1E-32
+#define PI 3.141592654
+
+
 double Derivative(double (*f)(double), double x, double h);
 
 

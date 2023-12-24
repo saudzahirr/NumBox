@@ -7,15 +7,12 @@
 
 #include <iostream>
 #include <random>
-#include "von_mises.h"
 #include "../Utils/utils.h"
+#include "von_mises.h"
 #include "rayleigh_quotient.h"
 
 using namespace std;
 
-
-#define ITERATIONS 1000
-#define TOLERANCE 1E-32
 
 double* VonMisesIterationMethod(double** A, int n) {
     double* x = new double[n];

@@ -7,8 +7,8 @@
 
 #include <iostream>
 #include <cmath>
-#include "cholesky.h"
 #include "../Utils/utils.h"
+#include "cholesky.h"
 
 using namespace std;
 
