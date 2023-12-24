@@ -3,6 +3,6 @@
 
 
 // Newton-Raphson Method to find the root of a function.
-double NewtonRaphsonMethod(double (*f)(double), double x0, int iterations, double tolerance);
+double NewtonRaphsonMethod(double (*f)(double), double x0);
 
 #endif
