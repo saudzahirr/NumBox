@@ -6,16 +6,17 @@
 
 #include <iostream>
 #include <cmath>
+#include "../Utils/utils.h"
 #include "regula_falsi.h"
 
 using namespace std;
 
 
-double RegulaFalsiMethod(double (*f)(double), double a, double b, int iterations, double tolerance = 1E-16) {
+double RegulaFalsiMethod(double (*f)(double), double a, double b) {
     double p = 0.0;
 
     if (f(a) * f(b) < 0) {
-        for (int i = 0; i < iterations; i++) {
+        for (int i = 0; i < ITERATIONS; i++) {
             // Regula-Falsi root update formula
             p = (a * f(b) - b * f(a)) / (f(b) - f(a));
 
@@ -56,11 +57,10 @@ double function(double x) {
 
 
 int main() {
-    int iterations = 2000;
     double a = 0.5;
     double b = 1.0;
 
-    double x = RegulaFalsiMethod(function, a, b, iterations);
+    double x = RegulaFalsiMethod(function, a, b);
     cout << "f(" << x <<") = " << function(x) << endl;
     return 0;
 }

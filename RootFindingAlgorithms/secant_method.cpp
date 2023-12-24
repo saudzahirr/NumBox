@@ -6,14 +6,15 @@
 
 #include <iostream>
 #include <cmath>
+#include "../Utils/utils.h"
 #include "secant_method.h"
 
 using namespace std;
 
 
-double SecantMethod(double (*f)(double), double x0, double x1, int iterations, double tolerance = 1E-16) {
+double SecantMethod(double (*f)(double), double x0, double x1) {
     double x;
-    for (int i = 0; i < iterations; i++) {
+    for (int i = 0; i < ITERATIONS; i++) {
         double Df = (f(x1) - f(x0)) / (x1 - x0);
 
         // Secant Method.
@@ -22,7 +23,7 @@ double SecantMethod(double (*f)(double), double x0, double x1, int iterations, d
         x0 = x1;
         x1 = x;
 
-        if (fabs(f(x)) < tolerance) {
+        if (fabs(f(x)) < TOLERANCE) {
             cout << "Converged after " << i << " iterations." << endl;
             return x;
         }
@@ -40,9 +41,7 @@ double function(double x) {
 
 
 int main() {
-    int iterations = 1000;
-    double tolerance = 1E-32;
-    double x = SecantMethod(function, 0.2, 1, iterations, tolerance);
+    double x = SecantMethod(function, 0.2, 1);
     cout << "x = " << x << endl;
     return 0;
 }

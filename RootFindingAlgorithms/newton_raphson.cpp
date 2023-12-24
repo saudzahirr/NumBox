@@ -6,17 +6,17 @@
 
 #include <iostream>
 #include <cmath>
-#include "newton_raphson.h"
 #include "../Utils/utils.h"
+#include "newton_raphson.h"
 
 using namespace std;
 
 
-double NewtonRaphsonMethod(double (*f)(double), double x0, int iterations, double tolerance = 1E-16) {
+double NewtonRaphsonMethod(double (*f)(double), double x0) {
     int i = 0;
     double x = x0;
 
-    for (i = 0; i < iterations; i++) {
+    for (i = 0; i < ITERATIONS; i++) {
         double df = Derivative(f, x, 1E-10);
 
         if (fabs(df) < 1e-8) {
@@ -27,7 +27,7 @@ double NewtonRaphsonMethod(double (*f)(double), double x0, int iterations, doubl
         // Newton-Raphson Method.
         x = x - f(x) / df;
 
-        if (floor(log10(f(x))) == floor(log10(tolerance))) {
+        if (floor(log10(f(x))) == floor(log10(TOLERANCE))) {
             break;
         }
     }
@@ -39,16 +39,14 @@ double NewtonRaphsonMethod(double (*f)(double), double x0, int iterations, doubl
 }
 
 
-
 double function(double x) {
     return x * sin(2 * x) - pow(x, 3);
 }
 
 
 int main() {
-    int iterations = 200;
     double x0 = 1;
 
-    NewtonRaphsonMethod(function, x0, iterations);
+    NewtonRaphsonMethod(function, x0);
     return 0;
 }
