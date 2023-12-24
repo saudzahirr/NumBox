@@ -48,19 +48,3 @@ double RegulaFalsiMethod(double (*f)(double), double a, double b) {
 
     return p;
 }
-
-
-
-double function(double x) {
-    return x * sin(2 * x) - pow(x, 3); // pow(x, 3) - x - 2;
-}
-
-
-int main() {
-    double a = 0.5;
-    double b = 1.0;
-
-    double x = RegulaFalsiMethod(function, a, b);
-    cout << "f(" << x <<") = " << function(x) << endl;
-    return 0;
-}

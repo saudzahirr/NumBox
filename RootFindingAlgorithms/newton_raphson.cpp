@@ -37,16 +37,3 @@ double NewtonRaphsonMethod(double (*f)(double), double x0) {
 
     return x;
 }
-
-
-double function(double x) {
-    return x * sin(2 * x) - pow(x, 3);
-}
-
-
-int main() {
-    double x0 = 1;
-
-    NewtonRaphsonMethod(function, x0);
-    return 0;
-}

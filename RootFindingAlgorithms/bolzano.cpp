@@ -46,19 +46,3 @@ double BolzanosMethod(double (*f)(double), double a, double b) {
 
     return p;
 }
-
-
-
-double function(double x) {
-    return pow(x, 3) - x - 2;
-}
-
-
-int main() {
-    double a = 0;
-    double b = 2;
-
-    double x = BolzanosMethod(function, a, b);
-    cout << "f(" << x <<") = " << function(x) << endl;
-    return 0;
-}
