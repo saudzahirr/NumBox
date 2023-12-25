@@ -19,6 +19,28 @@ double Derivative(double (*f)(double), double x, double h) {
 
 
 // Linear Algebra Utils.
+double** matrixAdd(double** A, double** B, int n, int m) {
+    double** C = new double*[n];
+    for (int i = 0; i < n; ++i) {
+        C[i] = new double[m];
+        for (int j = 0; j < m; ++j) {
+            C[i][j] = A[i][j] + B[i][j];
+        }
+    }
+    return C;
+};
+
+double** matrixSub(double** A, double** B, int n, int m) {
+    double** C = new double*[n];
+    for (int i = 0; i < n; ++i) {
+        C[i] = new double[m];
+        for (int j = 0; j < m; ++j) {
+            C[i][j] = A[i][j] - B[i][j];
+        }
+    }
+    return C;
+};
+
 double** matrixProduct(double** A, int rowsA, int colsA, double** B, int rowsB, int colsB) {
     if (colsA != rowsB) {
         cerr << "Error: Matrices cannot be multiplied. Invalid dimensions." << endl;
@@ -49,6 +71,78 @@ double** matrixProduct(double** A, int rowsA, int colsA, double** B, int rowsB, 
     return C;
 };
 
+double** matrixScalarProduct(double** A, int m, int n, double c) {
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
+            A[i][j] = c * A[i][j];
+        }
+    }
+    return A;
+};
+
+double** Transpose(double** matrix, int n, int m) {
+    double** transposedMatrix = new double*[m];
+    for (int i = 0; i < m; ++i) {
+        transposedMatrix[i] = new double[n];
+    }
+
+    // Transpose the matrix
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            transposedMatrix[j][i] = matrix[i][j];
+        }
+    }
+
+    return transposedMatrix;
+};
+
+bool equalMatrices(double** A, double** B, int m, int n) {
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
+            double roundedA = round(A[i][j] * 1E12) / 1E12;
+            double roundedB = round(B[i][j] * 1E12) / 1E12;
+            if (fabs(roundedA - roundedB) > TOLERANCE) {
+                return false;
+            }
+        }
+    }
+    return true;
+};
+
+bool equalVectors(double* vectorA, double* vectorB, int n) {
+    for (int i = 0; i < n; ++i) {
+        double roundedA = round(vectorA[i] * 1E12) / 1E12;
+        double roundedB = round(vectorB[i] * 1E12) / 1E12;
+        if (fabs(roundedA - roundedB) > TOLERANCE) {
+            return false;
+        }
+    }
+    return true;
+}
+
+double* vectorAdd(double* vectorA, double* vectorB, int n) {
+    double* vector = new double[n];
+    for (int i = 0; i < n; ++i) {
+        vector[i] = vectorA[i] + vectorB[i];
+    }
+    return vector;
+};
+
+double* vectorSub(double* vectorA, double* vectorB, int n) {
+    double* vector = new double[n];
+    for (int i = 0; i < n; ++i) {
+        vector[i] = vectorA[i] - vectorB[i];
+    }
+    return vector;
+};
+
+double* vectorScalarProduct(double* v, int n, double c) {
+    for (int i = 0; i < n; ++i) {
+        v[i] = c * v[i];
+    }
+    return v;
+};
+
 double* vectorProduct(double** A, int rowsA, int colsA, double* v, int rowsB) {
     if (colsA != rowsB) {
         cerr << "Matrix and vector dimensions are not compatible for multiplication.\n";
@@ -65,6 +159,22 @@ double* vectorProduct(double** A, int rowsA, int colsA, double* v, int rowsB) {
     }
     return x;
 };
+
+double** outerProduct(double* vectorA, int m, double* vectorB, int n) {
+    double** matrix = new double*[m];
+    for (int i = 0; i < m; ++i) {
+        matrix[i] = new double[n];
+    }
+
+    // Compute the outer product
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
+            matrix[i][j] = vectorA[i] * vectorB[j];
+        }
+    }
+
+    return matrix;
+}
 
 double Dot(double* vectorA, double* vectorB, int n) {
     double a = 0.0;

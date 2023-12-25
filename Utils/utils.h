@@ -11,9 +11,29 @@ double Derivative(double (*f)(double), double x, double h);
 
 
 // Linear Algebra Utils.
+double** matrixAdd(double** A, double** B, int n, int m);
+
+double** matrixSub(double** A, double** B, int n, int m);
+
 double** matrixProduct(double** A, int rowsA, int colsA, double** B, int rowsB, int colsB);
 
+double** matrixScalarProduct(double** A, int m, int n, double c);
+
+double** Transpose(double** matrix, int n, int m);
+
+bool equalMatrices(double** A, double** B, int m, int n);
+
+bool equalVectors(double* vectorA, double* vectorB, int n);
+
+double* vectorAdd(double* vectorA, double* vectorB, int n);
+
+double* vectorSub(double* vectorA, double* vectorB, int n);
+
+double* vectorScalarProduct(double* v, int n, double c);
+
 double* vectorProduct(double** A, int rowsA, int colsA, double* v, int rowsB);
+
+double** outerProduct(double* vectorA, int m, double* vectorB, int n);
 
 double Dot(double* vectorA, double* vectorB, int n);
 

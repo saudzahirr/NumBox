@@ -19,15 +19,15 @@ double NewtonRaphsonMethod(double (*f)(double), double x0) {
     for (i = 0; i < ITERATIONS; i++) {
         double df = Derivative(f, x, 1E-10);
 
-        if (fabs(df) < 1e-8) {
-            cout << x << " is a critical point, breaking iteration at " << i << "..." << endl;
+        if (fabs(df) < 1E-8) {
+            cerr << x << " is a critical point, breaking iteration at " << i << "..." << endl;
             return NAN;
         }
 
         // Newton-Raphson Method.
         x = x - f(x) / df;
 
-        if (floor(log10(f(x))) == floor(log10(TOLERANCE))) {
+        if (round(x * 1E16) / 1E16 < TOLERANCE) {
             break;
         }
     }

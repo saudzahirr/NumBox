@@ -13,10 +13,11 @@ using namespace std;
 
 
 double RegulaFalsiMethod(double (*f)(double), double a, double b) {
+    int i = 0;
     double p = 0.0;
 
     if (f(a) * f(b) < 0) {
-        for (int i = 0; i < ITERATIONS; i++) {
+        for (i = 0; i < ITERATIONS; i++) {
             // Regula-Falsi root update formula
             p = (a * f(b) - b * f(a)) / (f(b) - f(a));
 
@@ -29,8 +30,6 @@ double RegulaFalsiMethod(double (*f)(double), double a, double b) {
             }
 
             else if (round(f(a) * f(b)) == 0) {
-                cout << "The root of the function at " << i << " number of iterations is: " << endl;
-                cout << "x = " << p << endl;
                 break;
             }
 
@@ -40,11 +39,15 @@ double RegulaFalsiMethod(double (*f)(double), double a, double b) {
             }
 
         }
+
+        cout << "The root of the function at " << i << " number of iterations is: " << endl;
+        cout << "x = " << p << endl;
+
+        return p;
     }
 
     else {
         cerr << "Regula-Falsi method failed!" << endl;
+        return NAN;
     }
-
-    return p;
 }
