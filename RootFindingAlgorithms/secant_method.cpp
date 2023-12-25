@@ -13,8 +13,9 @@ using namespace std;
 
 
 double SecantMethod(double (*f)(double), double x0, double x1) {
+    int i;
     double x;
-    for (int i = 0; i < ITERATIONS; i++) {
+    for (i = 0; i < ITERATIONS; i++) {
         double Df = (f(x1) - f(x0)) / (x1 - x0);
 
         // Secant Method.
@@ -24,11 +25,12 @@ double SecantMethod(double (*f)(double), double x0, double x1) {
         x1 = x;
 
         if (fabs(f(x)) < TOLERANCE) {
-            cout << "Converged after " << i << " iterations." << endl;
+            cout << "The root of the function at " << i << " number of iterations is: " << endl;
+            cout << "x = " << x << endl;
             return x;
         }
     }
-    cerr << "Secant method did not converge within the specified number of iterations." << endl;
+    cerr << "Secant method did not converge within the specified range." << endl;
     return NAN;
 }
 
