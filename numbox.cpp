@@ -1,9 +1,103 @@
 #include <iostream>
+#include <math.h>
+#include <windows.h>
+
+#include "Utils/utils.h"
+
+#include "RootFindingAlgorithms/bolzano.h"
+#include "RootFindingAlgorithms/newton_raphson.h"
+#include "RootFindingAlgorithms/regula_falsi.h"
+#include "RootFindingAlgorithms/secant_method.h"
+
+#include "LinearAlgebra/cholesky.h"
+#include "LinearAlgebra/crout.h"
+#include "LinearAlgebra/doolittle.h"
 #include "LinearAlgebra/gauss_seidel.h"
 #include "LinearAlgebra/jacobi.h"
+#include "LinearAlgebra/rayleigh_quotient.h"
+#include "LinearAlgebra/sor.h"
+#include "LinearAlgebra/von_mises.h"
 #include "LinearAlgebra/weighted_jacobi.h"
 
+
 using namespace std;
+
+struct LinearAlgebra {
+    using Method = double* (*)(double**, double*, double*, int);
+    static Method GAUSS_SEIDEL;
+    static Method JACOBI;
+    // static Method SOR;
+    // static Method WEIGHTED_JACOBI;
+};
+
+LinearAlgebra::Method LinearAlgebra::GAUSS_SEIDEL = &GaussSeidelMethod;
+LinearAlgebra::Method LinearAlgebra::JACOBI = &JacobiMethod;
+// LinearAlgebra::Method LinearAlgebra::SOR = &SuccessiveOverRelaxation;
+// LinearAlgebra::Method LinearAlgebra::WEIGHTED_JACOBI = &WeightedJacobiMethod;
+
+class LinearSystemOfEquations {
+public:
+    LinearSystemOfEquations(double** A, double* B, int size)
+        : A(A), B(B), size(size), X(new double[size]) {}
+
+    ~LinearSystemOfEquations() {
+        delete[] X;
+    }
+
+    double* Solve(LinearAlgebra::Method method) {
+        return method(A, B, X, size);
+    }
+
+private:
+    double** A;
+    double* B;
+    int size;
+    double* X;
+};
+
+
+class EigenValueProblem {
+public:
+    EigenValueProblem(double** A, int size) : A(A), size(size), eigenvalues(nullptr), eigenvectors(nullptr) {
+        // Allocate memory for eigenvalues and eigenvectors
+        eigenvalues = new double[size];
+        eigenvectors = new double*[size];
+        for (int i = 0; i < size; ++i) {
+            eigenvectors[i] = new double[size];
+        }
+    }
+
+    ~EigenValueProblem() {
+        // Deallocate memory
+        delete[] eigenvalues;
+        for (int i = 0; i < size; ++i) {
+            delete[] eigenvectors[i];
+        }
+        delete[] eigenvectors;
+    }
+
+    void Solve() {
+        // Power Iteration with Deflation
+        for (int i = 0; i < size; i++) {
+            double* x = VonMisesIterationMethod(A, size);
+            double c = RayleighQuotient(A, x, size);
+            cout << "Eigenvalue: " << c << endl;
+            cout << "Eigenvector: ";
+            displayVector(x, size);
+            cout << endl;
+            A = matrixSub(A, matrixScalarProduct(outerProduct(x, size, x, size), size, size, c), size, size);
+        }
+    }
+
+private:
+    double** A;
+    int size;
+    double* eigenvalues;
+    double** eigenvectors;
+};
+
+
+
 
 int main() {
     const int n = 4;
@@ -14,28 +108,21 @@ int main() {
         A[i] = new double[n];
     }
 
-    // Define a matrix (4D array)
     A[0][0] = 10.0; A[0][1] = -1.0; A[0][2] = 2.0; A[0][3] = 0;
     A[1][0] = -1.0; A[1][1] = 11.0; A[1][2] = -1.0; A[1][3] = 3.0;
     A[2][0] = 2.0; A[2][1] = -1.0; A[2][2] = 10.0; A[2][3] = -1.0;
     A[3][0] = 0.0; A[3][1] = 3.0; A[3][2] = -1.0; A[3][3] = 8.0;
     double b[n] = {6.0, 25.0, -11.0, 15.0};
-    double x[n] = {0.0, 0.0, 0.0, 0.0};
 
-    double* U = GaussSeidelMethod(A, b, x, n);
-    if (U != nullptr) {
-        cout << "-----------------------------" << endl;
-        for (int i = 0; i < n; ++i) {
-            cout << "x[" << i << "] = " << U[i] << endl;
-        }
-        delete[] U; // Clean up dynamic memory
-    }
+    LinearSystemOfEquations linearSystem(A, b, n);
 
-    // Clean up dynamic memory
-    for (int i = 0; i < n; ++i) {
-        delete[] A[i];
-    }
-    delete[] A;
+    double* x = linearSystem.Solve(LinearAlgebra::JACOBI);
+    displayVector(x, n);
+
+    EigenValueProblem eigenProblem(A, n);
+    eigenProblem.Solve();
+
+    cleanMatrix(A, n);
 
     return 0;
 }
