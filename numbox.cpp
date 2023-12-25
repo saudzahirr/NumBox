@@ -1,41 +1,56 @@
 #include <iostream>
+#include <math.h>
+#include <windows.h>
+
+#include "Utils/utils.h"
+
+#include "RootFindingAlgorithms/bolzano.h"
+#include "RootFindingAlgorithms/newton_raphson.h"
+#include "RootFindingAlgorithms/regula_falsi.h"
+#include "RootFindingAlgorithms/secant_method.h"
+
+#include "LinearAlgebra/cholesky.h"
+#include "LinearAlgebra/crout.h"
+#include "LinearAlgebra/doolittle.h"
 #include "LinearAlgebra/gauss_seidel.h"
 #include "LinearAlgebra/jacobi.h"
+#include "LinearAlgebra/rayleigh_quotient.h"
+#include "LinearAlgebra/sor.h"
+#include "LinearAlgebra/von_mises.h"
 #include "LinearAlgebra/weighted_jacobi.h"
+
 
 using namespace std;
 
+struct LinearAlgebra {
+    using Method = double* (*)(double**, double*, double*, int);
+    static Method GAUSS_SEIDEL;
+    static Method JACOBI;
+    static Method SOR;
+    static Method WEIGHTED_JACOBI;
+};
+
+class LinearSystemOfEquations {
+public:
+    LinearSystemOfEquations(double** A, double* B, int size)
+        : A(A), B(B), size(size), X(new double[size]) {}
+
+    ~LinearSystemOfEquations() {
+        delete[] X;
+    }
+
+    // Solve the linear system using the specified method
+    double* Solve(LinearAlgebra::Method method) {
+        return method(A, B, X, size);
+    }
+
+private:
+    double** A;    // Coefficient matrix
+    double* B;     // Right-hand side vector
+    int size;      // Size of the system
+    double* X;     // Solution vector
+};
+
 int main() {
-    const int n = 4;
-
-    double** A = new double*[n];
-
-    for (int i = 0; i < n; ++i) {
-        A[i] = new double[n];
-    }
-
-    // Define a matrix (4D array)
-    A[0][0] = 10.0; A[0][1] = -1.0; A[0][2] = 2.0; A[0][3] = 0;
-    A[1][0] = -1.0; A[1][1] = 11.0; A[1][2] = -1.0; A[1][3] = 3.0;
-    A[2][0] = 2.0; A[2][1] = -1.0; A[2][2] = 10.0; A[2][3] = -1.0;
-    A[3][0] = 0.0; A[3][1] = 3.0; A[3][2] = -1.0; A[3][3] = 8.0;
-    double b[n] = {6.0, 25.0, -11.0, 15.0};
-    double x[n] = {0.0, 0.0, 0.0, 0.0};
-
-    double* U = GaussSeidelMethod(A, b, x, n);
-    if (U != nullptr) {
-        cout << "-----------------------------" << endl;
-        for (int i = 0; i < n; ++i) {
-            cout << "x[" << i << "] = " << U[i] << endl;
-        }
-        delete[] U; // Clean up dynamic memory
-    }
-
-    // Clean up dynamic memory
-    for (int i = 0; i < n; ++i) {
-        delete[] A[i];
-    }
-    delete[] A;
-
     return 0;
 }
