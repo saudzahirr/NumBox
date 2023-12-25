@@ -26,9 +26,14 @@ struct LinearAlgebra {
     using Method = double* (*)(double**, double*, double*, int);
     static Method GAUSS_SEIDEL;
     static Method JACOBI;
-    static Method SOR;
-    static Method WEIGHTED_JACOBI;
+    // static Method SOR;
+    // static Method WEIGHTED_JACOBI;
 };
+
+LinearAlgebra::Method LinearAlgebra::GAUSS_SEIDEL = &GaussSeidelMethod;
+LinearAlgebra::Method LinearAlgebra::JACOBI = &JacobiMethod;
+// LinearAlgebra::Method LinearAlgebra::SOR = &SuccessiveOverRelaxation;
+// LinearAlgebra::Method LinearAlgebra::WEIGHTED_JACOBI = &WeightedJacobiMethod;
 
 class LinearSystemOfEquations {
 public:
@@ -39,18 +44,85 @@ public:
         delete[] X;
     }
 
-    // Solve the linear system using the specified method
     double* Solve(LinearAlgebra::Method method) {
         return method(A, B, X, size);
     }
 
 private:
-    double** A;    // Coefficient matrix
-    double* B;     // Right-hand side vector
-    int size;      // Size of the system
-    double* X;     // Solution vector
+    double** A;
+    double* B;
+    int size;
+    double* X;
 };
 
+
+class EigenValueProblem {
+public:
+    EigenValueProblem(double** A, int size) : A(A), size(size), eigenvalues(nullptr), eigenvectors(nullptr) {
+        // Allocate memory for eigenvalues and eigenvectors
+        eigenvalues = new double[size];
+        eigenvectors = new double*[size];
+        for (int i = 0; i < size; ++i) {
+            eigenvectors[i] = new double[size];
+        }
+    }
+
+    ~EigenValueProblem() {
+        // Deallocate memory
+        delete[] eigenvalues;
+        for (int i = 0; i < size; ++i) {
+            delete[] eigenvectors[i];
+        }
+        delete[] eigenvectors;
+    }
+
+    void Solve() {
+        // Power Iteration with Deflation
+        for (int i = 0; i < size; i++) {
+            double* x = VonMisesIterationMethod(A, size);
+            double c = RayleighQuotient(A, x, size);
+            cout << "Eigenvalue: " << c << endl;
+            cout << "Eigenvector: ";
+            displayVector(x, size);
+            cout << endl;
+            A = matrixSub(A, matrixScalarProduct(outerProduct(x, size, x, size), size, size, c), size, size);
+        }
+    }
+
+private:
+    double** A;
+    int size;
+    double* eigenvalues;
+    double** eigenvectors;
+};
+
+
+
+
 int main() {
+    const int n = 4;
+
+    double** A = new double*[n];
+
+    for (int i = 0; i < n; ++i) {
+        A[i] = new double[n];
+    }
+
+    A[0][0] = 10.0; A[0][1] = -1.0; A[0][2] = 2.0; A[0][3] = 0;
+    A[1][0] = -1.0; A[1][1] = 11.0; A[1][2] = -1.0; A[1][3] = 3.0;
+    A[2][0] = 2.0; A[2][1] = -1.0; A[2][2] = 10.0; A[2][3] = -1.0;
+    A[3][0] = 0.0; A[3][1] = 3.0; A[3][2] = -1.0; A[3][3] = 8.0;
+    double b[n] = {6.0, 25.0, -11.0, 15.0};
+
+    LinearSystemOfEquations linearSystem(A, b, n);
+
+    double* x = linearSystem.Solve(LinearAlgebra::JACOBI);
+    displayVector(x, n);
+
+    EigenValueProblem eigenProblem(A, n);
+    eigenProblem.Solve();
+
+    cleanMatrix(A, n);
+
     return 0;
 }
