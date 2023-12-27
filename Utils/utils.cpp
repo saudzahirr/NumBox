@@ -6,7 +6,6 @@
 
 #include <iostream>
 #include <iomanip>
-#include <cmath>
 #include "utils.h"
 
 using namespace std;
