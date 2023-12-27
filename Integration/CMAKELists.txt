@@ -1,0 +1,4 @@
+file(GLOB INTEGRATION_SOURCES "*.cpp" "*.h")
+add_library(Integration ${INTEGRATION_SOURCES})
+
+target_include_directories(Integration PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ../Utils)

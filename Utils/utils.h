@@ -1,10 +1,11 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <cmath>
 
 #define ITERATIONS 1000
 #define TOLERANCE 1E-32
-#define PI 3.141592654
+#define PI M_PI
 
 
 double Derivative(double (*f)(double), double x, double h);

@@ -1,7 +1,8 @@
 #include <iostream>
 #include <math.h>
-#include <windows.h>
+#include <ctime>
 
+#include "logger.h"
 #include "Utils/utils.h"
 
 #include "RootFindingAlgorithms/bolzano.h"
@@ -116,11 +117,20 @@ int main() {
 
     LinearSystemOfEquations linearSystem(A, b, n);
 
-    double* x = linearSystem.Solve(LinearAlgebra::JACOBI);
+    clock_t time_req;
+    time_req = clock();
+
+    double* x = linearSystem.Solve(LinearAlgebra::GAUSS_SEIDEL);
     displayVector(x, n);
 
+    time_req = clock() - time_req;
+    info("Execution time for solving linear system of equation using Gauss-Seidel algorithm: " + to_string(time_req/CLOCKS_PER_SEC) + " seconds");
+
+    time_req = clock();
     EigenValueProblem eigenProblem(A, n);
     eigenProblem.Solve();
+    time_req = clock() - time_req;
+	debug("Execution time for calculating eigenvalues and eigenvectors using Von Mises iteration and Rayleigh quotient algorithm: " + to_string(time_req/CLOCKS_PER_SEC) + " seconds");
 
     cleanMatrix(A, n);
 
