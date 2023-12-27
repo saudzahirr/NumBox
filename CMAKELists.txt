@@ -3,9 +3,11 @@ project(NumBox)
 
 set(CMAKE_CXX_STANDARD 14)
 
+add_subdirectory(Utils)
 add_subdirectory(LinearAlgebra)
 add_subdirectory(RootFindingAlgorithms)
-add_subdirectory(Utils)
+add_subdirectory(Integration)
+add_subdirectory(ErrorAnalysis)
 
 file(GLOB MAIN_SOURCES "*.cpp")
 add_executable(numbox ${MAIN_SOURCES})

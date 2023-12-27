@@ -28,7 +28,7 @@ double trapezoidRule(double (*f)(double), double a, double b, int n, bool closed
 
     for (int i = 1; i < n; i++) {
         if (closed) {
-            x = a + i * h;
+            x = a + i * h; // Rectangle (Midpoint) Rule
         }
 
         else {
@@ -40,16 +40,4 @@ double trapezoidRule(double (*f)(double), double a, double b, int n, bool closed
     sum *= (h/2);
 
     return sum;
-}
-
-double gaussianFunction(double x) {
-    return exp(-x * x);
-}
-
-int main() {
-    double integration;
-    integration = trapezoidRule(gaussianFunction, -100, 100, 1000000, true);
-    cout << integration << endl;
-    cout << sqrt(PI) << endl; 
-    cout << abs(integration - sqrt(PI)) << endl;
 }

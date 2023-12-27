@@ -3,6 +3,9 @@
 *.exe
 *.so
 
+# Ignore log files
+*.log
+
 # Ignore CMAKE Build
 build/
 CMAKEFiles

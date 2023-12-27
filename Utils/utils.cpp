@@ -11,6 +11,12 @@
 using namespace std;
 
 
+double roundToNDecimals(double value, int n) {
+    double multiplier = pow(10.0, n);
+    return round(value * multiplier) / multiplier;
+};
+
+
 // Derivative of a function using Ab initio principle.
 double Derivative(double (*f)(double), double x, double h) {
     return (f(x + h) - f(x)) / h;

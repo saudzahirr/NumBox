@@ -7,7 +7,9 @@
 #define TOLERANCE 1E-32
 #define PI M_PI
 
+double roundToNDecimals(double value, int n);
 
+// Calculus utils
 double Derivative(double (*f)(double), double x, double h);
 
 
