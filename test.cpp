@@ -1,7 +1,7 @@
 #include <iostream>
 #include <math.h>
-#include <windows.h>
 
+#include "logger.h"
 #include "Utils/utils.h"
 
 #include "RootFindingAlgorithms/bolzano.h"
@@ -57,26 +57,6 @@ void initializeMatrix(double** A) {
             A[i][j] = MATRIX_A[i][j];
         }
     }
-};
-
-
-// Console display
-enum ConsoleColor {
-    BLACK = 0,
-    BLUE = FOREGROUND_BLUE,
-    GREEN = FOREGROUND_GREEN,
-    CYAN = FOREGROUND_GREEN | FOREGROUND_BLUE,
-    RED = FOREGROUND_RED,
-    MAGENTA = FOREGROUND_RED | FOREGROUND_BLUE,
-    YELLOW = FOREGROUND_RED | FOREGROUND_GREEN,
-    WHITE = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE,
-    DEFAULT = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE
-};
-
-void setColor(ConsoleColor color) {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
-    SetConsoleTextAttribute(hConsole, color);
 };
 
 
