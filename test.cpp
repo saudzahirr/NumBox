@@ -9,6 +9,8 @@
 #include "RootFindingAlgorithms/regula_falsi.h"
 #include "RootFindingAlgorithms/secant_method.h"
 
+#include "Integration/simpsons.h"
+
 #include "LinearAlgebra/cholesky.h"
 #include "LinearAlgebra/crout.h"
 #include "LinearAlgebra/doolittle.h"
@@ -32,6 +34,10 @@ double cubicPolynomial(double x) {
 double transcendentalFunction(double x) {
     return x * sin(2 * x) - pow(x, 3);
 };
+
+double gaussianFunction(double x) {
+    return exp(-x * x);
+}
 
 double** createMatrix() {
     const int n = 4;
@@ -65,6 +71,8 @@ void testNewtonRaphsonMethod();
 void testRegulaFalsiMethod();
 void testSecantMethod();
 
+void testSimpsonsRule();
+
 void testCholeskyDecomposition();
 void testCroutDecomposition();
 void testDoolittleDecomposition();
@@ -85,6 +93,11 @@ int main() {
     testNewtonRaphsonMethod();
     testRegulaFalsiMethod();
     testSecantMethod();
+
+    setColor(BLUE);
+    cout << "Testing Numerical Integration...\n" << endl;
+    setColor(DEFAULT);
+    void testSimpsonsRule();
 
     setColor(BLUE);
     cout << "Testing LU Decomposition Algorithms...\n" << endl;
@@ -513,3 +526,27 @@ void testVonMisesMethod() {
 
     cleanMatrix(A, n);
 };
+
+// Simpson's 1/3 Rule
+void testSimpsonsRule() {
+    double integration;
+
+    setColor(MAGENTA);
+    cout << "Testing Simpson's 1/3 Rule\n";
+    setColor(DEFAULT);
+
+    integration = simpsonsRule(gaussianFunction, -100, 100, 1000000, true);
+    
+    cout << "Area under gaussian curve using Simpson's 1/3 rule is" << integration << endl;
+
+    if (roundToNDecimals(integration, 2) == roundToNDecimals(sqrt(PI), 2)) {
+        setColor(GREEN);
+        cout << "Test Passed!\n" << endl;
+        setColor(DEFAULT);
+    }
+    else {
+        setColor(RED);
+        cout << "Test Failed!\n" << endl;
+        setColor(DEFAULT);
+    }
+}

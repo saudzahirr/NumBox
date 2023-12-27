@@ -1,0 +1,4 @@
+file(GLOB ERROR_ANALYSIS_SOURCES "*.cpp" "*.h")
+add_library(ErrorAnalysis ${ERROR_ANALYSIS_SOURCES})
+
+target_include_directories(ErrorAnalysis PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
