@@ -23,13 +23,21 @@ double RegulaFalsiMethod(double (*f)(double), double a, double b) {
 
             if (f(a) * f(p) < 0) {
                 b = p;
+
+                if (abs(roundToNDecimals(f(p), 15)) == 0) {
+                    break;
+                }
             }
             
             else if (f(p) * f(b) < 0) {
                 a = p;
+
+                if (abs(roundToNDecimals(f(p), 15)) == 0) {
+                    break;
+                }
             }
 
-            else if (round(f(a) * f(b)) == 0) {
+            else if (abs(roundToNDecimals(f(a) * f(b), 16)) == 0) {
                 break;
             }
 
