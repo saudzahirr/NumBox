@@ -1,4 +1,4 @@
 file(GLOB UTILS_SOURCES "*.cpp" "*.h")
-add_library(UTILS ${UTILS_SOURCES})
+add_library(Utils ${UTILS_SOURCES})
 
-target_include_directories(UTILS PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(Utils PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
