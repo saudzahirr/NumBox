@@ -8,6 +8,7 @@
 #include "RootFindingAlgorithms/newton_raphson.h"
 #include "RootFindingAlgorithms/regula_falsi.h"
 #include "RootFindingAlgorithms/secant_method.h"
+#include "RootFindingAlgorithms/fixed_point.h"
 
 #include "Integration/simpsons.h"
 
@@ -29,6 +30,10 @@ using namespace std;
 
 double cubicPolynomial(double x) {
     return pow(x, 3) - x - 2;
+};
+
+double cubicPolynomialg(double x) {
+    return pow(x, 3) - 2;
 };
 
 double transcendentalFunction(double x) {
@@ -70,6 +75,7 @@ void testBolzanoMethod();
 void testNewtonRaphsonMethod();
 void testRegulaFalsiMethod();
 void testSecantMethod();
+void testFixedPointMethod();
 
 void testSimpsonsRule();
 
@@ -93,6 +99,7 @@ int main() {
     testNewtonRaphsonMethod();
     testRegulaFalsiMethod();
     testSecantMethod();
+    testFixedPointMethod();
 
     setColor(BLUE);
     cout << "Testing Numerical Integration...\n" << endl;
@@ -155,7 +162,7 @@ void testNewtonRaphsonMethod() {
     setColor(MAGENTA);
     cout << "Testing Newton-Raphson's Method" << endl;
     setColor(DEFAULT);
-    cout << "Initial guess x0 = 1" << endl;
+    cout << "Initial: x0 = 1" << endl;
 
     double x = NewtonRaphsonMethod(transcendentalFunction, x0);
     setColor(YELLOW);
@@ -214,6 +221,32 @@ void testSecantMethod() {
     double x = SecantMethod(cubicPolynomial, a, b);
     setColor(YELLOW);
     cout << "f(" << x <<") = " << cubicPolynomial(x) << endl;
+
+    if (abs(root - x) < TOLERANCE) {
+        setColor(GREEN);
+        cout << "Test Passed!\n" << endl;
+        setColor(DEFAULT);
+    }
+    else {
+        setColor(RED);
+        cout << "Test Failed!\n" << endl;
+        setColor(DEFAULT);
+    }
+};
+
+// Test Fixed Point Method
+void testFixedPointMethod() {
+    double c = 1;
+    double root = CUBIC_ROOT;
+
+    setColor(MAGENTA);
+    cout << "Testing Fixed Point Method" << endl;
+    setColor(DEFAULT);
+    cout << "Initial: c0 = " << c << endl;
+
+    double x = FixedPointMethod(c, cubicPolynomialg);
+    setColor(YELLOW);
+    cout << "f(" << x <<") = " << cubicPolynomialg(x) << endl;
 
     if (abs(root - x) < TOLERANCE) {
         setColor(GREEN);
