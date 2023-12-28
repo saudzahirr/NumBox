@@ -33,7 +33,7 @@ double cubicPolynomial(double x) {
 };
 
 double cubicPolynomialg(double x) {
-    return pow(x, 3) - 2;
+    return cbrt(x + 2);
 };
 
 double transcendentalFunction(double x) {
@@ -236,7 +236,7 @@ void testSecantMethod() {
 
 // Test Fixed Point Method
 void testFixedPointMethod() {
-    double c = 1;
+    double c = 0;
     double root = CUBIC_ROOT;
 
     setColor(MAGENTA);
