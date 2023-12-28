@@ -1,4 +1,9 @@
 file(GLOB LINEAR_ALGEBRA_SOURCES "*.cpp" "*.h")
+
 add_library(LinearAlgebra ${LINEAR_ALGEBRA_SOURCES})
 
-target_include_directories(LinearAlgebra PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ../Utils)
+target_include_directories(LinearAlgebra
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/../Utils
+)

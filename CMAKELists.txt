@@ -3,13 +3,26 @@ project(NumBox)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_subdirectory(Utils)
-add_subdirectory(LinearAlgebra)
-add_subdirectory(RootFindingAlgorithms)
-add_subdirectory(Integration)
-add_subdirectory(ErrorAnalysis)
+set(SUBDIRECTORIES
+    Utils
+    LinearAlgebra
+    RootFindingAlgorithms
+    Integration
+    ErrorAnalysis
+)
+
+foreach(SUBDIR ${SUBDIRECTORIES})
+    add_subdirectory(${SUBDIR})
+endforeach()
 
 file(GLOB MAIN_SOURCES "*.cpp")
+
 add_executable(numbox ${MAIN_SOURCES})
 
-target_link_directories(numbox PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/LinearAlgebra ${CMAKE_CURRENT_SOURCE_DIR}/RootFindingAlgorithms ${CMAKE_CURRENT_SOURCE_DIR}/Utils)
+target_link_libraries(numbox PRIVATE Utils LinearAlgebra RootFindingAlgorithms Integration ErrorAnalysis, Logger)
+
+target_include_directories(numbox PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+
+foreach(SUBDIR ${SUBDIRECTORIES})
+    target_include_directories(${SUBDIR} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+endforeach()
