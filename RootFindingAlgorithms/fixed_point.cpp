@@ -15,20 +15,15 @@ using namespace std;
 
 
 double FixedPointMethod(double c, double (*g)(double)) {
-    double x = c;
-
     for (int i = 0; i < ITERATIONS; ++i) {
-        double c = g(x);
-        double error = abs(c - x);
+        double c = g(c);
 
-        if (error < TOLERANCE) {
+        if (abs(c - g(c)) == 0) {
             cout << "Iterations: " << i + 1 << endl;
             return c;
         }
-
-        x = c;
     }
 
     cerr << "Fixed-point method did not converge within " << ITERATIONS << " iterations." << endl;
-    return x;
+    return NAN;
 }
