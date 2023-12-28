@@ -27,7 +27,7 @@ double NewtonRaphsonMethod(double (*f)(double), double x0) {
         // Newton-Raphson Method.
         x = x - f(x) / df;
 
-        if (round(x * 1E16) / 1E16 < TOLERANCE) {
+        if (abs(roundToNDecimals(f(x), 15)) == 0) {
             break;
         }
     }
