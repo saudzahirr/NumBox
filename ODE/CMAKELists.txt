@@ -1,0 +1,9 @@
+file(GLOB ODE_SOURCES "*.cpp" "*.h")
+
+add_library(ODE ${ODE_SOURCES})
+
+target_include_directories(ODE
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/../Utils
+)
