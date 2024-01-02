@@ -1,0 +1,4 @@
+file(GLOB TEST_SOURCES "*.cpp" "*.h")
+add_library(Test ${TEST_SOURCES})
+
+target_include_directories(Test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

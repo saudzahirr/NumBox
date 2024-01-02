@@ -1,0 +1,9 @@
+file(GLOB PDE_SOURCES "*.cpp" "*.h")
+
+add_library(PDE ${PDE_SOURCES})
+
+target_include_directories(PDE
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/../Utils
+)

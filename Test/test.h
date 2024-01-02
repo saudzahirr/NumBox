@@ -1,29 +1,31 @@
+#ifndef TEST_H
+#define TEST_H
+
 #include <iostream>
 #include <math.h>
 
-#include "logger.h"
-#include "Utils/utils.h"
+#include "test_numerical_integration.h"
 
-#include "RootFindingAlgorithms/bolzano.h"
-#include "RootFindingAlgorithms/newton_raphson.h"
-#include "RootFindingAlgorithms/regula_falsi.h"
-#include "RootFindingAlgorithms/secant_method.h"
-#include "RootFindingAlgorithms/fixed_point.h"
+#include "../Logger/logger.h"
+#include "../Utils/utils.h"
 
-#include "Integration/simpsons.h"
+#include "../RootFindingAlgorithms/bolzano.h"
+#include "../RootFindingAlgorithms/newton_raphson.h"
+#include "../RootFindingAlgorithms/regula_falsi.h"
+#include "../RootFindingAlgorithms/secant_method.h"
+#include "../RootFindingAlgorithms/fixed_point.h"
 
-#include "LinearAlgebra/cholesky.h"
-#include "LinearAlgebra/crout.h"
-#include "LinearAlgebra/doolittle.h"
-#include "LinearAlgebra/gauss_seidel.h"
-#include "LinearAlgebra/jacobi.h"
-#include "LinearAlgebra/rayleigh_quotient.h"
-#include "LinearAlgebra/sor.h"
-#include "LinearAlgebra/von_mises.h"
-#include "LinearAlgebra/weighted_jacobi.h"
+#include "../Integration/simpsons.h"
 
-
-using namespace std;
+#include "../LinearAlgebra/cholesky.h"
+#include "../LinearAlgebra/crout.h"
+#include "../LinearAlgebra/doolittle.h"
+#include "../LinearAlgebra/gauss_seidel.h"
+#include "../LinearAlgebra/jacobi.h"
+#include "../LinearAlgebra/rayleigh_quotient.h"
+#include "../LinearAlgebra/sor.h"
+#include "../LinearAlgebra/von_mises.h"
+#include "../LinearAlgebra/weighted_jacobi.h"
 
 #define CUBIC_ROOT 1.5213797068045675696040808322544385144283898284279039090904980154
 #define TRANSCENDENTAL_ROOT 0.966876881413510626654237834545340028268547068798811
@@ -70,63 +72,6 @@ void initializeMatrix(double** A) {
     }
 };
 
-
-void testBolzanoMethod();
-void testNewtonRaphsonMethod();
-void testRegulaFalsiMethod();
-void testSecantMethod();
-void testFixedPointMethod();
-
-void testSimpsonsRule();
-
-void testCholeskyDecomposition();
-void testCroutDecomposition();
-void testDoolittleDecomposition();
-
-void testGaussSeidelMethod();
-void testJacobiMethod();
-void testSORMethod();
-void testWeightedJacobiMethod();
-
-void testVonMisesMethod();
-
-
-int main() {
-    setColor(BLUE);
-    cout << "Testing Root Finding Algorithms...\n" << endl;
-    setColor(DEFAULT);
-    testBolzanoMethod();
-    testNewtonRaphsonMethod();
-    testRegulaFalsiMethod();
-    testSecantMethod();
-    testFixedPointMethod();
-
-    setColor(BLUE);
-    cout << "Testing Numerical Integration...\n" << endl;
-    setColor(DEFAULT);
-    void testSimpsonsRule();
-
-    setColor(BLUE);
-    cout << "Testing LU Decomposition Algorithms...\n" << endl;
-    setColor(DEFAULT);
-    testCholeskyDecomposition();
-    testCroutDecomposition();
-    testDoolittleDecomposition();
-
-    setColor(BLUE);
-    cout << "Testing Numerical Linear Algebra Algorithms...\n" << endl;
-    setColor(DEFAULT);
-    testGaussSeidelMethod();
-    testJacobiMethod();
-    testSORMethod();
-    testWeightedJacobiMethod();
-
-    testVonMisesMethod();
-
-    return 0;
-}
-
-
 // Test Bolzano's Method
 void testBolzanoMethod() {
     double a = 0;
@@ -134,23 +79,21 @@ void testBolzanoMethod() {
     double root = CUBIC_ROOT;
 
     setColor(MAGENTA);
-    cout << "Testing Bolzano (Bisection) Method" << endl;
+    info("Testing Bolzano (Bisection) Method");
     setColor(DEFAULT);
-    cout << "Interval: [" << a << ", " << b << "]" << endl;
+    info("Interval: [" + to_string(a) + ", " + to_string(b) + "]");
 
     double x = BolzanosMethod(cubicPolynomial, a, b);
     setColor(YELLOW);
-    cout << "f(" << x <<") = " << cubicPolynomial(x) << endl;
+    info("f(" + to_string(x) + ") = " + to_string(cubicPolynomial(x)));
 
     if (abs(root - x) < TOLERANCE) {
         setColor(GREEN);
-        cout << "Test Passed!\n" << endl;
+        info("Test Passed!\n");
         setColor(DEFAULT);
     }
     else {
-        setColor(RED);
-        cout << "Test Failed!\n" << endl;
-        setColor(DEFAULT);
+        error("Test Failed!\n");
     }
 };
 
@@ -160,23 +103,21 @@ void testNewtonRaphsonMethod() {
     double root = TRANSCENDENTAL_ROOT;
 
     setColor(MAGENTA);
-    cout << "Testing Newton-Raphson's Method" << endl;
+    info("Testing Newton-Raphson's Method");
     setColor(DEFAULT);
-    cout << "Initial: x0 = 1" << endl;
+    info("Initial: x0 = " + to_string(x0));
 
     double x = NewtonRaphsonMethod(transcendentalFunction, x0);
     setColor(YELLOW);
-    cout << "f(" << x <<") = " << transcendentalFunction(x) << endl;
+    info("f(" + to_string(x) + ") = " + to_string(transcendentalFunction(x)));
 
     if (abs(root - x) < TOLERANCE) {
         setColor(GREEN);
-        cout << "Test Passed!\n" << endl;
+        info("Test Passed!\n");
         setColor(DEFAULT);
     }
     else {
-        setColor(RED);
-        cout << "Test Failed!\n" << endl;
-        setColor(DEFAULT);
+        error("Test Failed!\n");
     }
 };
 
@@ -187,23 +128,21 @@ void testRegulaFalsiMethod() {
     double root = TRANSCENDENTAL_ROOT;
 
     setColor(MAGENTA);
-    cout << "Testing Regula-Falsi Method" << endl;
+    info("Testing Regula Falsi Method");
     setColor(DEFAULT);
-    cout << "Interval: [" << a << ", " << b << "]" << endl;
+    info("Interval: [" + to_string(a) + ", " + to_string(b) + "]");
 
     double x = RegulaFalsiMethod(transcendentalFunction, a, b);
     setColor(YELLOW);
-    cout << "f(" << x <<") = " << transcendentalFunction(x) << endl;
+    info("f(" + to_string(x) + ") = " + to_string(transcendentalFunction(x)));
 
     if (abs(root - x) < TOLERANCE) {
         setColor(GREEN);
-        cout << "Test Passed!\n" << endl;
+        info("Test Passed!\n");
         setColor(DEFAULT);
     }
     else {
-        setColor(RED);
-        cout << "Test Failed!\n" << endl;
-        setColor(DEFAULT);
+        error("Test Failed!\n");
     }
 };
 
@@ -214,23 +153,21 @@ void testSecantMethod() {
     double root = CUBIC_ROOT;
 
     setColor(MAGENTA);
-    cout << "Testing Secant Method" << endl;
+    info("Testing Secant Method");
     setColor(DEFAULT);
-    cout << "Interval: [" << a << ", " << b << "]" << endl;
+    info("Interval: [" + to_string(a) + ", " + to_string(b) + "]");
 
     double x = SecantMethod(cubicPolynomial, a, b);
     setColor(YELLOW);
-    cout << "f(" << x <<") = " << cubicPolynomial(x) << endl;
+    info("f(" + to_string(x) + ") = " + to_string(cubicPolynomial(x)));
 
     if (abs(root - x) < TOLERANCE) {
         setColor(GREEN);
-        cout << "Test Passed!\n" << endl;
+        info("Test Passed!\n");
         setColor(DEFAULT);
     }
     else {
-        setColor(RED);
-        cout << "Test Failed!\n" << endl;
-        setColor(DEFAULT);
+        error("Test Failed!\n");
     }
 };
 
@@ -240,23 +177,21 @@ void testFixedPointMethod() {
     double root = CUBIC_ROOT;
 
     setColor(MAGENTA);
-    cout << "Testing Fixed Point Method" << endl;
+    info("Testing Fixed Point Method");
     setColor(DEFAULT);
-    cout << "Initial: c0 = " << c << endl;
+    info("Initial: c0 = " + to_string(c));
 
     double x = FixedPointMethod(c, cubicPolynomialg);
     setColor(YELLOW);
-    cout << "f(" << x <<") = " << cubicPolynomialg(x) << endl;
+    info("f(" + to_string(x) + ") = " + to_string(cubicPolynomial(x)));
 
     if (abs(root - x) < TOLERANCE) {
         setColor(GREEN);
-        cout << "Test Passed!\n" << endl;
+        info("Test Passed!\n");
         setColor(DEFAULT);
     }
     else {
-        setColor(RED);
-        cout << "Test Failed!\n" << endl;
-        setColor(DEFAULT);
+        error("Test Failed!\n");
     }
 };
 
@@ -267,7 +202,7 @@ void testCholeskyDecomposition() {
     initializeMatrix(A);
 
     setColor(MAGENTA);
-    cout << "Testing Cholesky LU Decomposition" << endl;
+    info("Testing Cholesky LU Decomposition");
     setColor(DEFAULT);
 
     double** L;
@@ -283,13 +218,11 @@ void testCholeskyDecomposition() {
 
     if (equalMatrices(A, matrixProduct(L, n, n, Transpose(L, n, n), n, n), n, n)) {
         setColor(GREEN);
-        cout << "Test Passed!\n" << endl;
+        info("Test Passed!\n");
         setColor(DEFAULT);
     }
     else {
-        setColor(RED);
-        cout << "Test Failed!\n" << endl;
-        setColor(DEFAULT);
+        error("Test Failed!\n");
     }
 
     // Clean up memory
@@ -304,7 +237,7 @@ void testCroutDecomposition() {
     initializeMatrix(A);
 
     setColor(MAGENTA);
-    cout << "Testing Crout LU Decomposition" << endl;
+    info("Testing Crout LU Decomposition");
     setColor(DEFAULT);
 
     double** L, ** U;
@@ -324,13 +257,11 @@ void testCroutDecomposition() {
 
     if (equalMatrices(A, matrixProduct(L, n, n, U, n, n), n, n)) {
         setColor(GREEN);
-        cout << "Test Passed!\n" << endl;
+        info("Test Passed!\n");
         setColor(DEFAULT);
     }
     else {
-        setColor(RED);
-        cout << "Test Failed!\n" << endl;
-        setColor(DEFAULT);
+        error("Test Failed!\n");
     }
 
     // Clean up memory
@@ -346,7 +277,7 @@ void testDoolittleDecomposition() {
     initializeMatrix(A);
 
     setColor(MAGENTA);
-    cout << "Testing Doolittle LU Decomposition" << endl;
+    info("Testing Doolittle LU Decomposition");
     setColor(DEFAULT);
 
     double** L, ** U;
@@ -366,13 +297,11 @@ void testDoolittleDecomposition() {
 
     if (equalMatrices(A, matrixProduct(L, n, n, U, n, n), n, n)) {
         setColor(GREEN);
-        cout << "Test Passed!\n" << endl;
+        info("Test Passed!\n");
         setColor(DEFAULT);
     }
     else {
-        setColor(RED);
-        cout << "Test Failed!\n" << endl;
-        setColor(DEFAULT);
+        error("Test Failed!\n");
     }
 
     // Clean up memory
@@ -391,7 +320,7 @@ void testGaussSeidelMethod() {
     double x[n] = {0.0, 0.0, 0.0, 0.0};
 
     setColor(MAGENTA);
-    cout << "Testing Gauss Seidel Method\n";
+    info("Testing Gauss Seidel Method");
     setColor(DEFAULT);
 
     double* U = GaussSeidelMethod(A, b, x, n);
@@ -405,14 +334,13 @@ void testGaussSeidelMethod() {
 
     if (equalVectors(X, U, n)) {
         setColor(GREEN);
-        cout << "Test Passed!\n" << endl;
+        info("Test Passed!\n");
         setColor(DEFAULT);
     }
     else {
-        setColor(RED);
-        cout << "Test Failed!\n" << endl;
-        setColor(DEFAULT);
+        error("Test Failed!\n");
     }
+
     cleanMatrix(A, n);
 };
 
@@ -426,7 +354,7 @@ void testJacobiMethod() {
     double x[n] = {0.0, 0.0, 0.0, 0.0};
 
     setColor(MAGENTA);
-    cout << "Testing Jacobi Method\n";
+    info("Testing Jacobi Method");
     setColor(DEFAULT);
 
     double* U = JacobiMethod(A, b, x, n);
@@ -440,13 +368,11 @@ void testJacobiMethod() {
 
     if (equalVectors(X, U, n)) {
         setColor(GREEN);
-        cout << "Test Passed!\n" << endl;
+        info("Test Passed!\n");
         setColor(DEFAULT);
     }
     else {
-        setColor(RED);
-        cout << "Test Failed!\n" << endl;
-        setColor(DEFAULT);
+        error("Test Failed!\n");
     }
 
     cleanMatrix(A, n);
@@ -463,7 +389,7 @@ void testSORMethod() {
     double x[n] = {0.0, 0.0, 0.0, 0.0};
 
     setColor(MAGENTA);
-    cout << "Testing Successive Over Relaxation Method\n";
+    info("Testing Successive Over Relaxation Method (SOR)");
     setColor(DEFAULT);
 
     double* U = SuccessiveOverRelaxation(A, b, x, w, n);
@@ -477,13 +403,11 @@ void testSORMethod() {
 
     if (equalVectors(X, U, n)) {
         setColor(GREEN);
-        cout << "Test Passed!\n" << endl;
+        info("Test Passed!\n");
         setColor(DEFAULT);
     }
     else {
-        setColor(RED);
-        cout << "Test Failed!\n" << endl;
-        setColor(DEFAULT);
+        error("Test Failed!\n");
     }
 
     cleanMatrix(A, n);
@@ -500,7 +424,7 @@ void testWeightedJacobiMethod() {
     double x[n] = {0.0, 0.0, 0.0, 0.0};
 
     setColor(MAGENTA);
-    cout << "Testing Weighted Jacobi Method\n";
+    info("Testing Weighted Jacobi Method");
     setColor(DEFAULT);
 
     double* U = WeightedJacobiMethod(A, b, x, w, n);
@@ -514,13 +438,11 @@ void testWeightedJacobiMethod() {
 
     if (equalVectors(X, U, n)) {
         setColor(GREEN);
-        cout << "Test Passed!\n" << endl;
+        info("Test Passed!\n");
         setColor(DEFAULT);
     }
     else {
-        setColor(RED);
-        cout << "Test Failed!\n" << endl;
-        setColor(DEFAULT);
+        error("Test Failed!\n");
     }
 
     cleanMatrix(A, n);
@@ -533,7 +455,7 @@ void testVonMisesMethod() {
     initializeMatrix(A);
 
     setColor(MAGENTA);
-    cout << "Testing Von Mises Method\n";
+    info("Testing Von Mises Method");
     setColor(DEFAULT);
 
     double* x = VonMisesIterationMethod(A, n);
@@ -544,42 +466,19 @@ void testVonMisesMethod() {
 
     double c = RayleighQuotient(A, x, n);
     setColor(YELLOW);
-    cout << "Eigenvalue: k = " << c << endl;
+    debug("Eigenvalue: k = " + to_string(c));
 
     if (vectorProduct(A, n, n, x, n) == vectorScalarProduct(x, n, c), n) {
         setColor(GREEN);
-        cout << "Test Passed!\n" << endl;
+        info("Test Passed!\n");
         setColor(DEFAULT);
     }
     else {
-        setColor(RED);
-        cout << "Test Failed!\n" << endl;
-        setColor(DEFAULT);
+        error("Test Failed!\n");
     }
 
     cleanMatrix(A, n);
 };
 
-// Simpson's 1/3 Rule
-void testSimpsonsRule() {
-    double integration;
 
-    setColor(MAGENTA);
-    cout << "Testing Simpson's 1/3 Rule\n";
-    setColor(DEFAULT);
-
-    integration = simpsonsRule(gaussianFunction, -100, 100, 1000000, true);
-    
-    cout << "Area under gaussian curve using Simpson's 1/3 rule is" << integration << endl;
-
-    if (roundToNDecimals(integration, 2) == roundToNDecimals(sqrt(PI), 2)) {
-        setColor(GREEN);
-        cout << "Test Passed!\n" << endl;
-        setColor(DEFAULT);
-    }
-    else {
-        setColor(RED);
-        cout << "Test Failed!\n" << endl;
-        setColor(DEFAULT);
-    }
-}
+#endif

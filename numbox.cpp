@@ -2,7 +2,7 @@
 #include <math.h>
 #include <ctime>
 
-#include "logger.h"
+#include "Logger/logger.h"
 #include "Utils/utils.h"
 
 #include "RootFindingAlgorithms/bolzano.h"
@@ -122,7 +122,7 @@ int main() {
 
     double* x = linearSystem.Solve(LinearAlgebra::GAUSS_SEIDEL);
     displayVector(x, n);
-
+    
     time_req = clock() - time_req;
     info("Execution time for solving linear system of equation using Gauss-Seidel algorithm: " + to_string(time_req/CLOCKS_PER_SEC) + " seconds");
 

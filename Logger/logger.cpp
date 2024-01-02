@@ -1,4 +1,4 @@
-#include "Logger.h"
+#include "logger.h"
 
 using namespace std;
 
@@ -28,7 +28,7 @@ void log(LogLevel level, const string& message) {
     switch (level) {
         case LogLevel::INFO:
             levelStr = "INFO";
-            levelColor = ConsoleColor::GREEN;
+            levelColor = ConsoleColor::WHITE;
             break;
         case LogLevel::WARNING:
             levelStr = "WARNING";
@@ -53,13 +53,16 @@ void log(LogLevel level, const string& message) {
         logFile.close();
     }
 
-    // Set color for the level string
     setColor(levelColor);
 
-    // Flush to console
-    cout << logMessage << endl;
+    if (levelStr == "ERROR") {
+        cerr << logMessage << endl;
+    }
+    
+    else {
+        cout << logMessage << endl;
+    }
 
-    // Reset color
     setColor(ConsoleColor::DEFAULT);
 }
 
@@ -78,13 +81,3 @@ void warning(const string& message) {
 void error(const string& message) {
     log(LogLevel::ERROR_MSG, message);
 }
-
-
-// int main() {
-//     info("This is an informational message.");
-//     warning("This is a warning message.");
-//     error("This is an error message.");
-//     debug("This is a debug message.");
-
-//     return 0;
-// }
