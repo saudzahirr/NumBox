@@ -1,10 +1,10 @@
-#include "test.h"
+#include "utest.h"
 
 using namespace std;
 
 int main() {
     setColor(BLUE);
-    info("Testing Root Finding Algorithms...");
+    INFO_OUT("Testing Root Finding Algorithms...");
     setColor(DEFAULT);
     testBolzanoMethod();
     testNewtonRaphsonMethod();
@@ -13,19 +13,19 @@ int main() {
     testFixedPointMethod();
 
     setColor(BLUE);
-    info("Testing Numerical Integration...");
+    INFO_OUT("Testing Numerical Integration...");
     setColor(DEFAULT);
-    void testSimpsonsRule();
+    testSimpsonsRule();
 
     setColor(BLUE);
-    info("Testing LU Decomposition Algorithms...");
+    INFO_OUT("Testing LU Decomposition Algorithms...");
     setColor(DEFAULT);
     testCholeskyDecomposition();
     testCroutDecomposition();
     testDoolittleDecomposition();
 
     setColor(BLUE);
-    info("Testing Numerical Linear Algebra Algorithms...\n");
+    INFO_OUT("Testing Numerical Linear Algebra Algorithms...\n");
     setColor(DEFAULT);
     testGaussSeidelMethod();
     testJacobiMethod();

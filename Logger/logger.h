@@ -10,18 +10,18 @@
 using namespace std;
 
 enum class LogLevel {
-    INFO,
-    WARNING,
+    INFO_MSG,
+    DEBUG_MSG,
+    WARNING_MSG,
     ERROR_MSG,
-    DEBUG
 };
 
-void log(LogLevel level, string& message);
+void LOGGER(LogLevel level, string& message);
 
-void info(const string& message);
-void debug(const string& message);
-void warning(const string& message);
-void error(const string& message);
+void INFO_OUT(const string& message);
+void DEBUG_OUT(const string& message);
+void WARNING_OUT(const string& message);
+void ERROR_OUT(const string& message);
 
 // Console display
 enum ConsoleColor {

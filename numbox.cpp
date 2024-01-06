@@ -124,13 +124,13 @@ int main() {
     displayVector(x, n);
     
     time_req = clock() - time_req;
-    info("Execution time for solving linear system of equation using Gauss-Seidel algorithm: " + to_string(time_req/CLOCKS_PER_SEC) + " seconds");
+    INFO_OUT("Execution time for solving linear system of equation using Gauss-Seidel algorithm: " + to_string(time_req/CLOCKS_PER_SEC) + " seconds");
 
     time_req = clock();
     EigenValueProblem eigenProblem(A, n);
     eigenProblem.Solve();
     time_req = clock() - time_req;
-	debug("Execution time for calculating eigenvalues and eigenvectors using Von Mises iteration and Rayleigh quotient algorithm: " + to_string(time_req/CLOCKS_PER_SEC) + " seconds");
+	DEBUG_OUT("Execution time for calculating eigenvalues and eigenvectors using Von Mises iteration and Rayleigh quotient algorithm: " + to_string(time_req/CLOCKS_PER_SEC) + " seconds");
 
     cleanMatrix(A, n);
 

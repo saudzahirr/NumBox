@@ -21,16 +21,16 @@ inline void setColor(ConsoleColor color) {
 }
 
 
-void log(LogLevel level, const string& message) {
+void LOGGER(LogLevel level, const string& message) {
     string levelStr;
     ConsoleColor levelColor;
 
     switch (level) {
-        case LogLevel::INFO:
+        case LogLevel::INFO_MSG:
             levelStr = "INFO";
             levelColor = ConsoleColor::WHITE;
             break;
-        case LogLevel::WARNING:
+        case LogLevel::WARNING_MSG:
             levelStr = "WARNING";
             levelColor = ConsoleColor::YELLOW;
             break;
@@ -38,7 +38,7 @@ void log(LogLevel level, const string& message) {
             levelStr = "ERROR";
             levelColor = ConsoleColor::RED;
             break;
-        case LogLevel::DEBUG:
+        case LogLevel::DEBUG_MSG:
             levelStr = "DEBUG";
             levelColor = ConsoleColor::MAGENTA;
             break;
@@ -66,18 +66,18 @@ void log(LogLevel level, const string& message) {
     setColor(ConsoleColor::DEFAULT);
 }
 
-void info(const string& message) {
-    log(LogLevel::INFO, message);
+void INFO_OUT(const string& message) {
+    LOGGER(LogLevel::INFO_MSG, message);
 }
 
-void debug(const string& message) {
-    log(LogLevel::DEBUG, message);
+void DEBUG_OUT(const string& message) {
+    LOGGER(LogLevel::DEBUG_MSG, message);
 }
 
-void warning(const string& message) {
-    log(LogLevel::WARNING, message);
+void WARNING_OUT(const string& message) {
+    LOGGER(LogLevel::WARNING_MSG, message);
 }
 
-void error(const string& message) {
-    log(LogLevel::ERROR_MSG, message);
+void ERROR_OUT(const string& message) {
+    LOGGER(LogLevel::ERROR_MSG, message);
 }
