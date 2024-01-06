@@ -19,8 +19,8 @@ void testSimpsonsRule() {
     INFO_OUT("Testing Simpson's 1/3 Rule");
     setColor(DEFAULT);
 
-    integration = simpsonsRule(gaussianFunction, -100, 100, 1000000, true);
-    
+    integration = simpsonsRule(gaussianFunction, -100, 100, 1000000);
+
     DEBUG_OUT("Area under gaussian curve using Simpson's 1/3 rule is " + to_string(integration));
 
     if (roundToNDecimals(integration, 2) == roundToNDecimals(sqrt(PI), 2)) {
