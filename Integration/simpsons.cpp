@@ -12,28 +12,14 @@
 using namespace std;
 
 
-double simpsonsRule(double (*f)(double), double a, double b, int n, bool closed) {
-    double h = 0.0;
-
-    if (closed) {
-        h = (b - a) / n;
-    }
-
-    else {
-        h = (b - a) / (n + 2);
-    }
+double simpsonsRule(double (*f)(double), double a, double b, int n) {
+    double h = (b - a) / n;
 
     double sum = f(a) + f(b);
     double x = 0.0;
 
     for (int i = 1; i < n; i++) {
-        if (closed) {
-            x = a + i * h; // 
-        }
-
-        else {
-            x = a + (i + 1) * h;
-        }
+        x = a + i * h;
 
         if (i % 2 == 0) {
             sum += 2 * f(x);
@@ -48,28 +34,14 @@ double simpsonsRule(double (*f)(double), double a, double b, int n, bool closed)
     return sum;
 }
 
-double simpsonsThreeEighthRule(double (*f)(double), double a, double b, int n, bool closed) {
-    double h = 0.0;
-
-    if (closed) {
-        h = (b - a) / n;
-    }
-
-    else {
-        h = (b - a) / (n + 2);
-    }
+double simpsonsThreeEighthRule(double (*f)(double), double a, double b, int n) {
+    double h = (b - a) / n;
 
     double sum = f(a) + f(b);
     double x = 0.0;
 
     for (int i = 1; i < n; i++) {
-        if (closed) {
-            x = a + i * h; // 
-        }
-
-        else {
-            x = a + (i + 1) * h;
-        }
+        x = a + i * h;
 
         if (i % 3 == 0) {
             sum += 2 * f(x);

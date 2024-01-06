@@ -23,7 +23,7 @@ double rombergsMethod(double (*f)(double), double a, double b, int n) {
     }
 
     for (int i = 0; i <= n; i++) {
-        R[i][0] = trapezoidRule(f, a, b, pow(2, i), true);
+        R[i][0] = trapezoidRule(f, a, b, pow(2, i));
     }
 
     // Apply Richardson extrapolation to compute the remaining entries
