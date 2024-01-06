@@ -1,0 +1,4 @@
+file(GLOB LOGGER_SOURCES "*.cpp" "*.h")
+add_library(Logger ${LOGGER_SOURCES})
+
+target_include_directories(Logger PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

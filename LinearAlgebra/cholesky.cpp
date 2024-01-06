@@ -1,8 +1,8 @@
 /*
  * Author: Saud Zahir
  * Date: December 18, 2023
- * Description: Cholesky LU Decomposition Method decomposes a matrix A (A = LU) into
- * a lower triangular matrix (L), an upper triangular matrix (U).
+ * Description: Cholesky LU Decomposition Method decomposes a matrix A (A = LL*) into
+ * a lower triangular matrix (L).
  */
 
 #include <iostream>

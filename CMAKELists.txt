@@ -10,6 +10,7 @@ set(SUBDIRECTORIES
     Integration
     ODE
     ErrorAnalysis
+    Logger
 )
 
 foreach(SUBDIR ${SUBDIRECTORIES})
@@ -20,7 +21,7 @@ file(GLOB MAIN_SOURCES "*.cpp")
 
 add_executable(numbox ${MAIN_SOURCES})
 
-target_link_libraries(numbox PRIVATE Utils LinearAlgebra RootFindingAlgorithms Integration ErrorAnalysis ODE, Logger)
+target_link_libraries(numbox PRIVATE Utils LinearAlgebra RootFindingAlgorithms Integration ODE ErrorAnalysis Logger)
 
 target_include_directories(numbox PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
