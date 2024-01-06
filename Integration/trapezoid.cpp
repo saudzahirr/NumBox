@@ -12,28 +12,14 @@
 using namespace std;
 
 
-double trapezoidRule(double (*f)(double), double a, double b, int n, bool closed) {
-    double h = 0.0;
-
-    if (closed) {
-        h = (b - a) / n;
-    }
-
-    else {
-        h = (b - a) / (n + 2);
-    }
+double trapezoidRule(double (*f)(double), double a, double b, int n) {
+    double h = h = (b - a) / n;
 
     double sum = f(a) + f(b);
     double x = 0.0;
 
     for (int i = 1; i < n; i++) {
-        if (closed) {
-            x = a + i * h; // Rectangle (Midpoint) Rule
-        }
-
-        else {
-            x = a + (i + 1) * h;
-        }
+        x = a + i * h;
 
         sum += 2 * f(x);
     }

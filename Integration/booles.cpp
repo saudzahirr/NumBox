@@ -13,28 +13,14 @@
 using namespace std;
 
 
-double boolesRule(double (*f)(double), double a, double b, int n, bool closed) {
-    double h = 0.0;
-
-    if (closed) {
-        h = (b - a) / n;
-    }
-
-    else {
-        h = (b - a) / (n + 2);
-    }
+double boolesRule(double (*f)(double), double a, double b, int n) {
+    double h = (b - a) / n;
 
     double sum = 7 * (f(a) + f(b));
     double x = 0.0;
 
     for (int i = 1; i < n; i++) {
-        if (closed) {
-            x = a + i * h;
-        }
-
-        else {
-            x = a + (i + 1) * h;
-        }
+        x = a + i * h;
 
         if (i % 4 == 1 || i % 4 == 3) {
             sum += 32 * f(x);
