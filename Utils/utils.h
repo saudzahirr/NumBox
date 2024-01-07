@@ -2,6 +2,11 @@
 #define UTILS_H
 
 #include <cmath>
+#include <iostream>
+#include <sstream>
+#include <iomanip>
+
+using namespace std;
 
 #define ITERATIONS 1000
 #define TOLERANCE 1E-32
@@ -57,6 +62,10 @@ void cleanMatrix(double** matrix, int rows);
 void displayMatrix(double** matrix, int rows, int cols, int cellSize);
 
 void displayVector(double* vector, int n);
+
+string getMatrixString(double** matrix, int rows, int cols, int cellSize);
+
+string getVectorString(double* vector, int n);
 
 double determinantTriangularMatrix(double** matrix, int n);
 

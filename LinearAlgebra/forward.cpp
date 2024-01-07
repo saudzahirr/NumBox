@@ -1,10 +1,22 @@
-#include <iostream>
-#include "cholesky.h"
+/*
+ * Author: Saud Zahir
+ * Date: December 29, 2023
+ * Description: Forward Subsitution Method.
+ */
+
+#include <ctime>
+#include "../Logger/logger.h"
 #include "../Utils/utils.h"
 
 using namespace std;
 
 double** forwardSubstitution(double** L, int n) {
+    clock_t time_req;
+    time_req = clock();
+
+    INFO_OUT("Starting forward substitution ...");
+    DEBUG_OUT("Lower Triangular Matrix: \n" + getMatrixString(L, n, n, 8));
+
     // Create and initialize the identity matrix
     double** I = new double*[n];
     for (int i = 0; i < n; ++i) {
@@ -34,6 +46,11 @@ double** forwardSubstitution(double** L, int n) {
             }
         }
     }
+
+    time_req = clock() - time_req;
+    INFO_OUT("Execution time for forward substitution algorithm: "
+            + formatPrecision(time_req/CLOCKS_PER_SEC) + " seconds");
+
 
     return I;
 }

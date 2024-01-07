@@ -5,13 +5,22 @@
  */
 
 
+#include <ctime>
+#include "../Logger/logger.h"
+#include "../Utils/utils.h"
 #include "thomas.h"
 
 using namespace std;
 
 double* thomasAlgorithm(double** A, double* b, int n) {
-    // Allocate memory for the solution vector x
+    clock_t time_req;
+    time_req = clock();
+
     double* x = new double[n];
+
+    DEBUG_OUT("Tridiagonal Matrix: \n" + getMatrixString(A, n, n, 8));
+
+    INFO_OUT("Starting forward elimination for Thomas' Algorithm ...");
 
     // Forward elimination
     for (int i = 1; i < n; ++i) {
@@ -20,11 +29,19 @@ double* thomasAlgorithm(double** A, double* b, int n) {
         b[i] -= factor * b[i-1];
     }
 
+    INFO_OUT("Starting backward elimination for Thomas' Algorithm");
+
     // Backward substitution
     x[n-1] = b[n-1] / A[n-1][n-1];
     for (int i = n-2; i >= 0; --i) {
         x[i] = (b[i] - A[i][i+1] * x[i+1]) / A[i][i];
     }
+
+    DEBUG_OUT("x = " + getVectorString(x, n));
+
+    time_req = clock() - time_req;
+    INFO_OUT("Execution time for Thomas algorithm: "
+            + formatPrecision(time_req/CLOCKS_PER_SEC) + " seconds");
 
     return x;
 }

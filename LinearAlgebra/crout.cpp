@@ -5,7 +5,8 @@
  * a lower triangular matrix (L), an upper triangular matrix (U).
  */
 
-#include <iostream>
+#include <ctime>
+#include "../Logger/logger.h"
 #include "../Utils/utils.h"
 #include "crout.h"
 
@@ -13,7 +14,12 @@ using namespace std;
 
 
 void croutLU(double** A, double**& L, double**& U, int n) {
-    // Initialize L and U matrices
+    clock_t time_req;
+    time_req = clock();
+
+    INFO_OUT("Starting Crout's LU Decomposition ...");
+    DEBUG_OUT("Matrix A: \n" + getMatrixString(A, n, n, 8));
+
     L = new double*[n];
     U = new double*[n];
     for (int i = 0; i < n; i++) {
@@ -46,4 +52,11 @@ void croutLU(double** A, double**& L, double**& U, int n) {
             U[j][i] = (A[j][i] - sum) / L[j][j];
         }
     }
+
+    DEBUG_OUT("Crout's Lower Triangular Matrix: \n" + getMatrixString(L, n, n, 8));
+    DEBUG_OUT("Crout's Upper Triangular Matrix: \n" + getMatrixString(U, n, n, 8));
+
+    time_req = clock() - time_req;
+    INFO_OUT("Execution time for Crout's LU algorithm: "
+            + formatPrecision(time_req/CLOCKS_PER_SEC) + " seconds");
 }

@@ -7,7 +7,8 @@
  */
 
 
-#include <iostream>
+#include <ctime>
+#include "../Logger/logger.h"
 #include "../Utils/utils.h"
 #include "sor.h"
 
@@ -15,6 +16,12 @@ using namespace std;
 
 
 double* SuccessiveOverRelaxation(double** A, double* b, double* x, double w, int n) {
+    clock_t time_req;
+    time_req = clock();
+
+    INFO_OUT("Starting Successive Over-Relaxation Method ...");
+    DEBUG_OUT("Matrix A: \n" + getMatrixString(A, n, n, 8));
+
     double* x_k = new double[n];
 
     // SOR method element-wise formula.
@@ -31,8 +38,9 @@ double* SuccessiveOverRelaxation(double** A, double* b, double* x, double w, int
 
             if (A[i][i] != 0) {
                 x_k[i] = (1 - w) * x[i] + (w / A[i][i]) * (b[i] - S1 - S2);
-            } else {
-                cerr << "Division by zero encountered. SOR method did not converge!" << endl;
+            }
+            else {
+                ERROR_OUT("Division by zero encountered. SOR method did not converge!");
                 delete[] x_k;
                 return nullptr;
             }
@@ -52,13 +60,21 @@ double* SuccessiveOverRelaxation(double** A, double* b, double* x, double w, int
         }
 
         if (max_relative_diff < TOLERANCE) {
-            cout << "SOR method converged at " << a << " iterations." << endl;
+            INFO_OUT("Successive Over-Relaxation (SOR) Method converged at "
+                    + to_string(a) + " iterations.");
+            
+            DEBUG_OUT("x = " + getVectorString(x, n));
+
+            time_req = clock() - time_req;
+            INFO_OUT("Execution time for Successive Over-Relaxation (SOR) Method: "
+            + formatPrecision(time_req/CLOCKS_PER_SEC) + " seconds");
+
             delete[] x_k;
             return x;
         }
     }
     delete[] x_k;
 
-    cerr << "SOR method did not converge!" << endl;
+    ERROR_OUT("SOR method did not converge!");
     return nullptr;
 }

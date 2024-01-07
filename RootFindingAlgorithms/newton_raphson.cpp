@@ -4,8 +4,8 @@
  * Description: Newton-Raphson root finding algorithm.
  */
 
-#include <iostream>
-#include <cmath>
+#include <ctime>
+#include "../Logger/logger.h"
 #include "../Utils/utils.h"
 #include "newton_raphson.h"
 
@@ -13,6 +13,12 @@ using namespace std;
 
 
 double NewtonRaphsonMethod(double (*f)(double), double x0) {
+    clock_t time_req;
+    time_req = clock();
+
+    INFO_OUT("Starting Newton-Raphson Algorithm ...");
+    DEBUG_OUT("Initial : x0 = " + formatPrecision(x0));
+
     int i = 0;
     double x = x0;
 
@@ -20,7 +26,7 @@ double NewtonRaphsonMethod(double (*f)(double), double x0) {
         double df = Derivative(f, x, 1E-10);
 
         if (fabs(df) < 1E-8) {
-            cerr << x << " is a critical point, breaking iteration at " << i << "..." << endl;
+            ERROR_OUT("Critical point: " + formatPrecision(x) + ". Iteration stopped at " + to_string(i));
             return NAN;
         }
 
@@ -32,8 +38,14 @@ double NewtonRaphsonMethod(double (*f)(double), double x0) {
         }
     }
 
-    cout << "The root of the function at " << i << " number of iterations is: " << endl;
-    cout << x << endl;
+    DEBUG_OUT("The root of the function at " + to_string(i)
+            + " number of iterations is: " + formatPrecision(x));
+
+    DEBUG_OUT("f(" + to_string(x) + ") = " + to_string(f(x)));
+
+    time_req = clock() - time_req;
+    INFO_OUT("Execution time for Newton-Raphson's Algorithm: "
+            + formatPrecision(time_req/CLOCKS_PER_SEC) + " seconds");
 
     return x;
 }
