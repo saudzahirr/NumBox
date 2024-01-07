@@ -20,6 +20,18 @@ inline void setColor(ConsoleColor color) {
     SetConsoleTextAttribute(hConsole, static_cast<WORD>(color));
 }
 
+string formatPrecision(double value) {
+    ostringstream oss;
+    oss << fixed << setprecision(8) << value;
+    return oss.str();
+}
+
+void sleep(int seconds) {
+    time_t startTime = time(nullptr);
+    time_t targetTime = startTime + seconds;
+
+    while (time(nullptr) < targetTime);
+}
 
 void LOGGER(LogLevel level, const string& message) {
     string levelStr;

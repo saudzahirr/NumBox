@@ -4,8 +4,9 @@
  * Description: Bolzano's (Bisection) method root finding algorithm.
  */
 
-#include <iostream>
-#include <cmath>
+
+#include <ctime>
+#include "../Logger/logger.h"
 #include "../Utils/utils.h"
 #include "bolzano.h"
 
@@ -13,6 +14,12 @@ using namespace std;
 
 
 double BolzanosMethod(double (*f)(double), double a, double b) {
+    clock_t time_req;
+    time_req = clock();
+
+    INFO_OUT("Starting Bolzano's Bisection Algorithm ...");
+    DEBUG_OUT("Interval: [" + to_string(a) + ", " + to_string(b) + "]");
+
     double p = 0.0;
 
     if (f(a) * f(b) < 0) {
@@ -27,13 +34,14 @@ double BolzanosMethod(double (*f)(double), double a, double b) {
             }
 
             else if (round(f(a) * f(b)) == 0) {
-                cout << "The root of the function at " << i << " number of iterations is: " << endl;
-                cout << "x = " << p << endl;
+                DEBUG_OUT("The root of the function at "
+                        + to_string(i) + " number of iterations is: "
+                        + formatPrecision(p));
                 break;
             }
 
             else {
-                cout << "Bolzano's method did not converge" << endl;
+                WARNING_OUT("Bolzano's method did not converge!");
                 break;
             }
 
@@ -41,8 +49,14 @@ double BolzanosMethod(double (*f)(double), double a, double b) {
     }
 
     else {
-        cerr << "Bolzano's method failed!" << endl;
+        ERROR_OUT("Bolzano's method failed!");
     }
+
+    DEBUG_OUT("f(" + to_string(p) + ") = " + to_string(f(p)));
+
+    time_req = clock() - time_req;
+    INFO_OUT("Execution time for Bolzano's bisection Algorithm: "
+            + formatPrecision(time_req/CLOCKS_PER_SEC) + " seconds");
 
     return p;
 }

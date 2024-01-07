@@ -4,8 +4,8 @@
  * Description: Regula Falsi (False Position) method root finding algorithm.
  */
 
-#include <iostream>
-#include <cmath>
+#include <ctime>
+#include "../Logger/logger.h"
 #include "../Utils/utils.h"
 #include "regula_falsi.h"
 
@@ -13,6 +13,12 @@ using namespace std;
 
 
 double RegulaFalsiMethod(double (*f)(double), double a, double b) {
+    clock_t time_req;
+    time_req = clock();
+
+    INFO_OUT("Starting Regula-Falsi Method ...");
+    DEBUG_OUT("Interval: [" + to_string(a) + ", " + to_string(b) + "]");
+
     int i = 0;
     double p = 0.0;
 
@@ -42,20 +48,27 @@ double RegulaFalsiMethod(double (*f)(double), double a, double b) {
             }
 
             else {
-                cout << "Regula-Falsi method did not converge" << endl;
+                WARNING_OUT("Regula-Falsi method did not converge!");
                 break;
             }
 
         }
 
-        cout << "The root of the function at " << i << " number of iterations is: " << endl;
-        cout << "x = " << p << endl;
+        DEBUG_OUT("The root of the function at "
+                + to_string(i) + " number of iterations is: "
+                + formatPrecision(p));
+        
+        DEBUG_OUT("f(" + to_string(p) + ") = " + to_string(f(p)));
+        
+        time_req = clock() - time_req;
+        INFO_OUT("Execution time for Regula-Falsi Method: "
+                + formatPrecision(time_req/CLOCKS_PER_SEC) + " seconds");
 
         return p;
     }
 
     else {
-        cerr << "Regula-Falsi method failed!" << endl;
+        ERROR_OUT("Regula-Falsi method failed!");
         return NAN;
     }
 }

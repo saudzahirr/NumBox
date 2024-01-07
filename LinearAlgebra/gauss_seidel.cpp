@@ -5,7 +5,8 @@
  */
 
 
-#include <iostream>
+#include <ctime>
+#include "../Logger/logger.h"
 #include "../Utils/utils.h"
 #include "gauss_seidel.h"
 
@@ -13,6 +14,12 @@ using namespace std;
 
 
 double* GaussSeidelMethod(double** A, double* b, double* x, int n) {
+    clock_t time_req;
+    time_req = clock();
+
+    INFO_OUT("Starting Gauss-Seidel Method ...");
+    DEBUG_OUT("Matrix A: \n" + getMatrixString(A, n, n, 8));
+
     double* x_k = new double[n];
 
     // Gauss-Seidel method elementwise formula.
@@ -26,7 +33,15 @@ double* GaussSeidelMethod(double** A, double* b, double* x, int n) {
             for (int j = i + 1; j < n; ++j) {
                 S2 += A[i][j] * x[j];
             }
-            x_k[i] = (b[i] - S1 - S2) / A[i][i];
+
+            if (A[i][i] != 0) {
+                x_k[i] = (b[i] - S1 - S2) / A[i][i];
+            }
+            else {
+                ERROR_OUT("Division by zero encountered. Gauss-Seidel method did not converge!");
+                delete[] x_k;
+                return nullptr;
+            }
         }
 
         // Absolute error evaluation
@@ -43,13 +58,21 @@ double* GaussSeidelMethod(double** A, double* b, double* x, int n) {
         }
 
         if (max_diff < TOLERANCE) {
-            cout << "Gauss-Seidel method converged at " << a << " iterations." << endl;
+            INFO_OUT("Gauss-Seidel method converged at "
+                    + to_string(a) + " iterations.");
+            
+            DEBUG_OUT("x = " + getVectorString(x, n));
+
+            time_req = clock() - time_req;
+            INFO_OUT("Execution time for Gauss-Seidel Method: "
+            + formatPrecision(time_req/CLOCKS_PER_SEC) + " seconds");
+
             delete[] x_k;
             return x;
         }
     }
     delete[] x_k;
 
-    cerr << "Gauss-Seidel method did not converge!" << endl;
+    ERROR_OUT("Gauss-Seidel method did not converge!");
     return nullptr;
 }

@@ -2,6 +2,8 @@
 #define LOGGER_H
 
 #include <iostream>
+#include <iomanip>
+#include <sstream>
 #include <fstream>
 #include <string>
 #include <ctime>
@@ -46,5 +48,9 @@ enum ConsoleColor {
 };
 
 void setColor(ConsoleColor color);
+
+string formatPrecision(double value);
+
+void sleep(int seconds);
 
 #endif // LOGGER_H

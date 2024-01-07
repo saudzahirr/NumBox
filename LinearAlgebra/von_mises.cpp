@@ -5,8 +5,9 @@
  */
 
 
-#include <iostream>
 #include <random>
+#include <ctime>
+#include "../Logger/logger.h"
 #include "../Utils/utils.h"
 #include "von_mises.h"
 
@@ -14,6 +15,14 @@ using namespace std;
 
 
 double* VonMisesIterationMethod(double** A, int n) {
+    clock_t time_req;
+    time_req = clock();
+
+    INFO_OUT("Starting Von Mises Method ...");
+    DEBUG_OUT("Matrix A: \n" + getMatrixString(A, n, n, 8));
+
+    INFO_OUT("Initializing random vector for Von Mises iteration ...");
+
     double* x = new double[n];
     double* u = new double[n];
 
@@ -33,6 +42,8 @@ double* VonMisesIterationMethod(double** A, int n) {
         x[i] = random_number;
     }
 
+    DEBUG_OUT("x0 = " + getVectorString(x, n));
+
     // Von Mises iterative formula.
     for (int a = 1; a <= ITERATIONS; ++a) {
         u = x;
@@ -44,12 +55,24 @@ double* VonMisesIterationMethod(double** A, int n) {
         for (int i = 0; i < n; ++i) {
             change += abs(x[i] - u[i]);
             if (change == 0) {
-                cout << "Dominant Eigenvector converged at " << a << " iterations." << endl;
+                INFO_OUT("Dominant Eigenvector converged at " + to_string(a) + " iterations.");
+
+                DEBUG_OUT("x = " + getVectorString(x, n));
+
+                time_req = clock() - time_req;
+                INFO_OUT("Execution time for Von Mises Method: "
+                        + formatPrecision(time_req/CLOCKS_PER_SEC) + " seconds");
                 delete u;
                 return x;
             }
         }
     }
+
+    DEBUG_OUT("x = " + getVectorString(x, n));
+
+    time_req = clock() - time_req;
+    INFO_OUT("Execution time for Von Mises Method: "
+            + formatPrecision(time_req/CLOCKS_PER_SEC) + " seconds");
     delete u;
     return x;
 }

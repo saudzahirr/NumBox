@@ -5,8 +5,8 @@
  * a lower triangular matrix (L).
  */
 
-#include <iostream>
-#include <cmath>
+#include <ctime>
+#include "../Logger/logger.h"
 #include "../Utils/utils.h"
 #include "cholesky.h"
 
@@ -14,6 +14,12 @@ using namespace std;
 
 
 void choleskyDecomposition(double** A, double**& L, int n) {
+    clock_t time_req;
+    time_req = clock();
+
+    INFO_OUT("Starting Cholesky's LU Decomposition ...");
+    DEBUG_OUT("Matrix A: \n" + getMatrixString(A, n, n, 8));
+
     L = new double*[n];
     for (int i = 0; i < n; ++i) {
         L[i] = new double[n];
@@ -42,4 +48,10 @@ void choleskyDecomposition(double** A, double**& L, int n) {
             }
         }
     }
+
+    DEBUG_OUT("Cholesky's Lower Triangular Matrix: \n" + getMatrixString(L, n, n, 8));
+
+    time_req = clock() - time_req;
+    INFO_OUT("Execution time for Cholesky's LU algorithm: "
+            + formatPrecision(time_req/CLOCKS_PER_SEC) + " seconds");
 }
