@@ -26,6 +26,14 @@ void LOGGER(LogLevel level, const string& message) {
     ConsoleColor levelColor;
 
     switch (level) {
+        case LogLevel::TRACE_MSG:
+            levelStr = "TRACE";
+            levelColor = ConsoleColor::GRAY;
+            break;
+        case LogLevel::DEBUG_MSG:
+            levelStr = "DEBUG";
+            levelColor = ConsoleColor::MAGENTA;
+            break;
         case LogLevel::INFO_MSG:
             levelStr = "INFO";
             levelColor = ConsoleColor::WHITE;
@@ -38,9 +46,17 @@ void LOGGER(LogLevel level, const string& message) {
             levelStr = "ERROR";
             levelColor = ConsoleColor::RED;
             break;
-        case LogLevel::DEBUG_MSG:
-            levelStr = "DEBUG";
-            levelColor = ConsoleColor::MAGENTA;
+        case LogLevel::CRTITCAL_MSG:
+            levelStr = "CRITICAL";
+            levelColor = ConsoleColor::CYAN;
+            break;
+        case LogLevel::PRINT_MSG:
+            levelStr = "INFO";
+            levelColor = ConsoleColor::BLUE;
+            break;
+        case LogLevel::TEST_PASSED_MSG:
+            levelStr = "INFO";
+            levelColor = ConsoleColor::GREEN;
             break;
     }
 
@@ -57,6 +73,7 @@ void LOGGER(LogLevel level, const string& message) {
 
     if (levelStr == "ERROR") {
         cerr << logMessage << endl;
+        throw runtime_error(logMessage);
     }
     
     else {
@@ -66,12 +83,19 @@ void LOGGER(LogLevel level, const string& message) {
     setColor(ConsoleColor::DEFAULT);
 }
 
-void INFO_OUT(const string& message) {
-    LOGGER(LogLevel::INFO_MSG, message);
+
+void TRACE_OUT(const string& message) {
+    LOGGER(LogLevel::TRACE_MSG, message);
 }
 
+// Messages that contain information normally of use only when debugging a program.
 void DEBUG_OUT(const string& message) {
     LOGGER(LogLevel::DEBUG_MSG, message);
+}
+
+// Confirmation that the program is working as expected.
+void INFO_OUT(const string& message) {
+    LOGGER(LogLevel::INFO_MSG, message);
 }
 
 void WARNING_OUT(const string& message) {
@@ -80,4 +104,17 @@ void WARNING_OUT(const string& message) {
 
 void ERROR_OUT(const string& message) {
     LOGGER(LogLevel::ERROR_MSG, message);
+}
+
+// Hard device errors.
+void CRTITCAL_OUT(const string& message) {
+    LOGGER(LogLevel::CRTITCAL_MSG, message);
+}
+
+void PRINT(const string& message) {
+    LOGGER(LogLevel::PRINT_MSG, message);
+}
+
+void TEST_PASSED(const string& message) {
+    LOGGER(LogLevel::TEST_PASSED_MSG, message);
 }

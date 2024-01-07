@@ -26,7 +26,7 @@ void testCholeskyDecomposition() {
     initializeMatrix(A);
 
     setColor(MAGENTA);
-    INFO_OUT("Testing Cholesky LU Decomposition");
+    PRINT("Testing Cholesky LU Decomposition");
     setColor(DEFAULT);
 
     double** L;
@@ -42,7 +42,7 @@ void testCholeskyDecomposition() {
 
     if (equalMatrices(A, matrixProduct(L, n, n, Transpose(L, n, n), n, n), n, n)) {
         setColor(GREEN);
-        INFO_OUT("Test Passed!\n");
+        TEST_PASSED("Test Passed!");
         setColor(DEFAULT);
     }
     else {
@@ -61,7 +61,7 @@ void testCroutDecomposition() {
     initializeMatrix(A);
 
     setColor(MAGENTA);
-    INFO_OUT("Testing Crout LU Decomposition");
+    PRINT("Testing Crout LU Decomposition");
     setColor(DEFAULT);
 
     double** L, ** U;
@@ -81,7 +81,7 @@ void testCroutDecomposition() {
 
     if (equalMatrices(A, matrixProduct(L, n, n, U, n, n), n, n)) {
         setColor(GREEN);
-        INFO_OUT("Test Passed!\n");
+        TEST_PASSED("Test Passed!");
         setColor(DEFAULT);
     }
     else {
@@ -101,7 +101,7 @@ void testDoolittleDecomposition() {
     initializeMatrix(A);
 
     setColor(MAGENTA);
-    INFO_OUT("Testing Doolittle LU Decomposition");
+    PRINT("Testing Doolittle LU Decomposition");
     setColor(DEFAULT);
 
     double** L, ** U;
@@ -121,7 +121,7 @@ void testDoolittleDecomposition() {
 
     if (equalMatrices(A, matrixProduct(L, n, n, U, n, n), n, n)) {
         setColor(GREEN);
-        INFO_OUT("Test Passed!\n");
+        TEST_PASSED("Test Passed!");
         setColor(DEFAULT);
     }
     else {
@@ -144,7 +144,7 @@ void testGaussSeidelMethod() {
     double x[n] = {0.0, 0.0, 0.0, 0.0};
 
     setColor(MAGENTA);
-    INFO_OUT("Testing Gauss Seidel Method");
+    PRINT("Testing Gauss Seidel Method");
     setColor(DEFAULT);
 
     double* U = GaussSeidelMethod(A, b, x, n);
@@ -158,7 +158,7 @@ void testGaussSeidelMethod() {
 
     if (equalVectors(X, U, n)) {
         setColor(GREEN);
-        INFO_OUT("Test Passed!\n");
+        TEST_PASSED("Test Passed!");
         setColor(DEFAULT);
     }
     else {
@@ -178,7 +178,7 @@ void testJacobiMethod() {
     double x[n] = {0.0, 0.0, 0.0, 0.0};
 
     setColor(MAGENTA);
-    INFO_OUT("Testing Jacobi Method");
+    PRINT("Testing Jacobi Method");
     setColor(DEFAULT);
 
     double* U = JacobiMethod(A, b, x, n);
@@ -192,7 +192,7 @@ void testJacobiMethod() {
 
     if (equalVectors(X, U, n)) {
         setColor(GREEN);
-        INFO_OUT("Test Passed!\n");
+        TEST_PASSED("Test Passed!");
         setColor(DEFAULT);
     }
     else {
@@ -213,7 +213,7 @@ void testSORMethod() {
     double x[n] = {0.0, 0.0, 0.0, 0.0};
 
     setColor(MAGENTA);
-    INFO_OUT("Testing Successive Over Relaxation Method (SOR)");
+    PRINT("Testing Successive Over Relaxation Method (SOR)");
     setColor(DEFAULT);
 
     double* U = SuccessiveOverRelaxation(A, b, x, w, n);
@@ -227,7 +227,7 @@ void testSORMethod() {
 
     if (equalVectors(X, U, n)) {
         setColor(GREEN);
-        INFO_OUT("Test Passed!\n");
+        TEST_PASSED("Test Passed!");
         setColor(DEFAULT);
     }
     else {
@@ -248,7 +248,7 @@ void testWeightedJacobiMethod() {
     double x[n] = {0.0, 0.0, 0.0, 0.0};
 
     setColor(MAGENTA);
-    INFO_OUT("Testing Weighted Jacobi Method");
+    PRINT("Testing Weighted Jacobi Method");
     setColor(DEFAULT);
 
     double* U = WeightedJacobiMethod(A, b, x, w, n);
@@ -262,7 +262,7 @@ void testWeightedJacobiMethod() {
 
     if (equalVectors(X, U, n)) {
         setColor(GREEN);
-        INFO_OUT("Test Passed!\n");
+        TEST_PASSED("Test Passed!");
         setColor(DEFAULT);
     }
     else {
@@ -279,7 +279,7 @@ void testVonMisesMethod() {
     initializeMatrix(A);
 
     setColor(MAGENTA);
-    INFO_OUT("Testing Von Mises Method");
+    PRINT("Testing Von Mises Method");
     setColor(DEFAULT);
 
     double* x = VonMisesIterationMethod(A, n);
@@ -294,7 +294,7 @@ void testVonMisesMethod() {
 
     if (vectorProduct(A, n, n, x, n) == vectorScalarProduct(x, n, c), n) {
         setColor(GREEN);
-        INFO_OUT("Test Passed!\n");
+        TEST_PASSED("Test Passed!");
         setColor(DEFAULT);
     }
     else {
