@@ -17,7 +17,7 @@ void testBolzanoMethod() {
     double root = CUBIC_ROOT;
 
     setColor(MAGENTA);
-    INFO_OUT("Testing Bolzano (Bisection) Method");
+    PRINT("Testing Bolzano (Bisection) Method");
     setColor(DEFAULT);
     INFO_OUT("Interval: [" + to_string(a) + ", " + to_string(b) + "]");
 
@@ -27,7 +27,7 @@ void testBolzanoMethod() {
 
     if (abs(root - x) < TOLERANCE) {
         setColor(GREEN);
-        INFO_OUT("Test Passed!\n");
+        TEST_PASSED("Test Passed!");
         setColor(DEFAULT);
     }
     else {
@@ -41,7 +41,7 @@ void testNewtonRaphsonMethod() {
     double root = TRANSCENDENTAL_ROOT;
 
     setColor(MAGENTA);
-    INFO_OUT("Testing Newton-Raphson's Method");
+    PRINT("Testing Newton-Raphson's Method");
     setColor(DEFAULT);
     INFO_OUT("Initial: x0 = " + to_string(x0));
 
@@ -51,7 +51,7 @@ void testNewtonRaphsonMethod() {
 
     if (abs(root - x) < TOLERANCE) {
         setColor(GREEN);
-        INFO_OUT("Test Passed!\n");
+        TEST_PASSED("Test Passed!");
         setColor(DEFAULT);
     }
     else {
@@ -66,7 +66,7 @@ void testRegulaFalsiMethod() {
     double root = TRANSCENDENTAL_ROOT;
 
     setColor(MAGENTA);
-    INFO_OUT("Testing Regula Falsi Method");
+    PRINT("Testing Regula Falsi Method");
     setColor(DEFAULT);
     INFO_OUT("Interval: [" + to_string(a) + ", " + to_string(b) + "]");
 
@@ -76,7 +76,7 @@ void testRegulaFalsiMethod() {
 
     if (abs(root - x) < TOLERANCE) {
         setColor(GREEN);
-        INFO_OUT("Test Passed!\n");
+        TEST_PASSED("Test Passed!");
         setColor(DEFAULT);
     }
     else {
@@ -91,7 +91,7 @@ void testSecantMethod() {
     double root = CUBIC_ROOT;
 
     setColor(MAGENTA);
-    INFO_OUT("Testing Secant Method");
+    PRINT("Testing Secant Method");
     setColor(DEFAULT);
     INFO_OUT("Interval: [" + to_string(a) + ", " + to_string(b) + "]");
 
@@ -101,7 +101,7 @@ void testSecantMethod() {
 
     if (abs(root - x) < TOLERANCE) {
         setColor(GREEN);
-        INFO_OUT("Test Passed!\n");
+        TEST_PASSED("Test Passed!");
         setColor(DEFAULT);
     }
     else {
@@ -115,7 +115,7 @@ void testFixedPointMethod() {
     double root = CUBIC_ROOT;
 
     setColor(MAGENTA);
-    INFO_OUT("Testing Fixed Point Method");
+    PRINT("Testing Fixed Point Method");
     setColor(DEFAULT);
     INFO_OUT("Initial: c0 = " + to_string(c));
 
@@ -125,7 +125,7 @@ void testFixedPointMethod() {
 
     if (abs(root - x) < TOLERANCE) {
         setColor(GREEN);
-        INFO_OUT("Test Passed!\n");
+        TEST_PASSED("Test Passed!");
         setColor(DEFAULT);
     }
     else {
