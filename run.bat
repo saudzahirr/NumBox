@@ -2,5 +2,5 @@ g++ numbox.cpp Logger/logger.cpp Utils/*.cpp RootFindingAlgorithms/*.cpp Integra
 numbox
 
 del *.exe
-del *.dll
-del *.so
+@REM del *.dll
+@REM del *.so

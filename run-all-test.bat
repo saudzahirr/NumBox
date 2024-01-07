@@ -2,5 +2,5 @@ g++ Test/utest.cpp Logger/logger.cpp Utils/*.cpp RootFindingAlgorithms/*.cpp Int
 utest
 
 del *.exe
-del *.dll
-del *.so
+@REM del *.dll
+@REM del *.so

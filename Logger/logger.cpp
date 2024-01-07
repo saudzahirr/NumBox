@@ -88,10 +88,12 @@ void TRACE_OUT(const string& message) {
     LOGGER(LogLevel::TRACE_MSG, message);
 }
 
+// Messages that contain information normally of use only when debugging a program.
 void DEBUG_OUT(const string& message) {
     LOGGER(LogLevel::DEBUG_MSG, message);
 }
 
+// Confirmation that the program is working as expected.
 void INFO_OUT(const string& message) {
     LOGGER(LogLevel::INFO_MSG, message);
 }
@@ -104,6 +106,7 @@ void ERROR_OUT(const string& message) {
     LOGGER(LogLevel::ERROR_MSG, message);
 }
 
+// Hard device errors.
 void CRTITCAL_OUT(const string& message) {
     LOGGER(LogLevel::CRTITCAL_MSG, message);
 }
