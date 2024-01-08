@@ -33,7 +33,70 @@ void sleep(int seconds) {
     while (time(nullptr) < targetTime);
 }
 
+string executeCommand(const char* cmd) {
+    array<char, 128> buffer;
+    string result;
+    unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd, "r"), pclose);
+    if (!pipe) {
+        throw runtime_error("popen() failed!");
+    }
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+        result += buffer.data();
+    }
+    return result;
+}
+
+string getGPPVersion() {
+    return executeCommand("g++ --version");
+}
+
+string getCMakeVersion() {
+    return executeCommand("cmake --version");
+}
+
+int getOMPMaxThreads() {
+    return thread::hardware_concurrency();
+}
+
+void logSystemInfoOnce() {
+    static bool systemInfoLogged = false;
+    if (!systemInfoLogged) {
+        string FDM_template =
+            "/*--------------------------------*- C++ -*----------------------------------*\\\n"
+            "|   _         _             |                                                 |\n"
+            "|  | * * 0 0 0 |            | OpenFDM: Numerical Methods Toolbox              |\n"
+            "|  | * * * 0 0 | F inite    | Version:  v2023                                 |\n"
+            "|  | 0 * * * 0 | D iscrete  |                                                 |\n"
+            "|  | 0 0 * * * | M atrix    |                                                 |\n"
+            "|  |_0 0 0 * *_|            |                                                 |\n"
+            "|                           |                                                 |\n"
+            "\\*---------------------------------------------------------------------------*/\n\n";
+
+        ofstream logFile("NumBox.log", ios::app);
+        if (logFile.is_open()) {
+            logFile << FDM_template;
+            logFile.close();
+        }
+
+        string systemInfo = "CMake Version: " + getCMakeVersion() + "\n" +
+                            + "G++ Version: " + getGPPVersion() + "\n" +
+                            + "OMP max threads: " + to_string(getOMPMaxThreads());
+
+        logFile.open("NumBox.log", ios::app);
+        if (logFile.is_open()) {
+            logFile << "System Information:\n" << systemInfo << "\n\n";
+            logFile.close();
+        }
+
+        systemInfoLogged = true;
+    }
+}
+
+
+
 void LOGGER(LogLevel level, const string& message) {
+    logSystemInfoOnce();
+
     string levelStr;
     ConsoleColor levelColor;
 

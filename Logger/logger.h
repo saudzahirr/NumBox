@@ -2,11 +2,13 @@
 #define LOGGER_H
 
 #include <iostream>
-#include <iomanip>
-#include <sstream>
 #include <fstream>
-#include <string>
+#include <sstream>
+#include <iomanip>
 #include <ctime>
+#include <cstdlib>
+#include <thread>
+#include <string>
 #include <Windows.h>
 
 using namespace std;
